@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kotlin Language FAQ</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Styling -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .q-number {
+            background-color: #6f42c1;
+            color: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        h1 {
+            color: #6f42c1;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5 mb-5">
+    <h1 class="text-center mb-4">Kotlin Programming – FAQ</h1>
+
+    <div class="accordion" id="kotlinFaq">
+
+        <!-- Q1 -->
+        <div class="accordion-item">
+            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#q1">
+                <span class="q-number">1</span> What is Kotlin?
+            </button>
+            <div id="q1" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <strong>Kotlin</strong> is a cross‑platform, statically typed programming language
+                    developed by <strong>JetBrains</strong>. It is fully interoperable with Java and
+                    is Google’s <strong>preferred language for Android development</strong>.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="accordion-item">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q2">
+                <span class="q-number">2</span> What are the key features of Kotlin?
+            </button>
+            <div id="q2" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <ul>
+                        <li><strong>Interoperability</strong> with Java</li>
+                        <li><strong>Null Safety</strong></li>
+                        <li><strong>Concise syntax</strong></li>
+                        <li><strong>Extension Functions</strong></li>
+                        <li><strong>Coroutines</strong></li>
+                        <li><strong>Smart Casts</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="accordion-item">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q3">
+                <span class="q-number">3</span> What is the difference between val and var?
+            </button>
+            <div id="q3" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>val</strong> is used for immutable variables, while
+                    <strong>var</strong> is used for mutable variables whose values can be reassigned.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="accordion-item">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q4">
+                <span class="q-number">4</span> How does Null Safety work in Kotlin?
+            </button>
+            <div id="q4" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Kotlin avoids null pointer exceptions using nullable types (<code>?</code>)
+                    and the safe‑call operator <code>?.</code>.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q5 (GIST 1) -->
+        <div class="accordion-item">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q5">
+                <span class="q-number">5</span> What are Data Classes in Kotlin?
+            </button>
+            <div id="q5" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    A <strong>Data Class</strong> automatically generates methods like
+                    <strong>equals()</strong>, <strong>hashCode()</strong>, and
+                    <strong>toString()</strong>.
+                    <br><br>
+                    <script src="https://gist.github.com/radhapawarofficial/a24f09c46bf897d0effa839a23d64656.js"></script>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="accordion-item">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q6">
+                <span class="q-number">6</span> What is a Primary Constructor?
+            </button>
+            <div id="q6" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    A <strong>primary constructor</strong> is defined in the class header
+                    and is used to initialize class properties.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="accordion-item">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q7">
+                <span class="q-number">7</span> What are Extension Functions?
+            </button>
+            <div id="q7" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Extension functions allow adding new functions to existing classes
+                    without modifying their source code.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="accordion-item">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q8">
+                <span class="q-number">8</span> What is the Elvis Operator?
+            </button>
+            <div id="q8" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    The <strong>Elvis Operator</strong> <code>?:</code> provides a default value
+                    when an expression evaluates to null.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="accordion-item">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q9">
+                <span class="q-number">9</span> How do ranges and loops work in Kotlin?
+            </button>
+            <div id="q9" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Kotlin provides readable loops using <code>..</code>, <code>downTo</code>,
+                    and <code>step</code>.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q10 (GIST 2) -->
+        <div class="accordion-item">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q10">
+                <span class="q-number">10</span> What is a Lambda Expression in Kotlin?
+            </button>
+            <div id="q10" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Lambda expressions are anonymous functions commonly used with
+                    higher‑order functions.
+                    <br><br>
+                    <script src="https://gist.github.com/radhapawarofficial/748ab56cb3ffbdf51b8914a9da008e59.js"></script>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
