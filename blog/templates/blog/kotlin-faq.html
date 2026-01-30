@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Kotlin Language FAQ</title>
+    <title>Kotlin FAQ's</title>
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,178 +11,1176 @@
     <!-- Custom Styling -->
     <style>
         body {
-            background-color: #f8f9fa;
+            background: #f4f6fb;
         }
-        .q-number {
-            background-color: #6f42c1;
-            color: white;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 12px;
+
+        .qa-box {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
         }
+
         h1 {
-            color: #6f42c1;
-            font-weight: bold;
+            color: #4f46e5;
+            font-weight: 700;
+        }
+
+        .accordion-button {
+            font-weight: 600;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: #e0e7ff;
+            color: #1e1b4b;
+        }
+
+        .q-number {
+            color: #4f46e5;
+            font-weight: 700;
+            margin-right: 8px;
         }
     </style>
 </head>
+
 <body>
 
-<div class="container mt-5 mb-5">
-    <h1 class="text-center mb-4">Kotlin Programming – FAQ</h1>
+    <div class="container mt-5 mb-5">
+        <div class="qa-box">
+            <h1 class="text-center mb-4">Kotlin FAQ's</h1>
 
-    <div class="accordion" id="kotlinFaq">
+            <div class="accordion" id="KotlinAccordion">
 
-        <!-- Q1 -->
-        <div class="accordion-item">
-            <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#q1">
-                <span class="q-number">1</span> What is Kotlin?
-            </button>
-            <div id="q1" class="accordion-collapse collapse show">
-                <div class="accordion-body">
-                    <strong>Kotlin</strong> is a cross‑platform, statically typed programming language
-                    developed by <strong>JetBrains</strong>. It is fully interoperable with Java and
-                    is Google’s <strong>preferred language for Android development</strong>.
+                <!-- 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a1">
+                            1. What is Django?
+                        </button>
+                    </h2>
+                    <div id="a1" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Kotlin</strong> is a cross-platform, statically typed, general-purpose
+                                programming language
+                                with type inference.
+                                Developed by <strong>JetBrains</strong>, it is designed to interoperate fully
+                                with Java, but provides more concise syntax and addresses many of Java's pain points,
+                                such as "null pointer exceptions." In 2019, Google announced Kotlin as its preferred
+                                language for Android app developers.
+                            </p>
+
+                            <script>  </script>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Q2 -->
-        <div class="accordion-item">
-            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q2">
-                <span class="q-number">2</span> What are the key features of Kotlin?
-            </button>
-            <div id="q2" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    <ul>
-                        <li><strong>Interoperability</strong> with Java</li>
-                        <li><strong>Null Safety</strong></li>
-                        <li><strong>Concise syntax</strong></li>
-                        <li><strong>Extension Functions</strong></li>
-                        <li><strong>Coroutines</strong></li>
-                        <li><strong>Smart Casts</strong></li>
-                    </ul>
+                <!-- Q2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a2">
+                            2. What are the key features of Kotlin?
+                        </button>
+                    </h2>
+                    <div id="a2" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                            <ul>
+                                <li><strong>Interoperability: </strong>You can call Java code from Kotlin and vice-versa
+                                    seamlessly within the same project.</li>
+                                <li><strong>Null Safety: </strong>The compiler systematically helps avoid
+                                    <code>NullPointerExceptions</code> by distinguishing between nullable and
+                                    non-nullable types.
+                                </li>
+                                <li><strong>Conciseness: </strong>It reduces boilerplate code significantly (e.g., Data
+                                    Classes replace dozens of lines of Java getters/setters).</li>
+                                <li><strong>Extension Functions: </strong>Allows you to extend a class with new
+                                    functionality without having to inherit from the class.</li>
+                                <li><strong>Coroutines: </strong>Provides a way to write asynchronous, non-blocking code
+                                    that is easy to read and maintain.</li>
+                                <li><strong>Smart Casts: </strong>The compiler automatically tracks checks and performs
+                                    type casts for you.</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Q3 -->
-        <div class="accordion-item">
-            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q3">
-                <span class="q-number">3</span> What is the difference between val and var?
-            </button>
-            <div id="q3" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    <strong>val</strong> is used for immutable variables, while
-                    <strong>var</strong> is used for mutable variables whose values can be reassigned.
+                <!-- Q3 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a3">
+                            3. What is the difference between val and var ?
+                        </button>
+                    </h2>
+                    <div id="a3" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                            <ul>
+                                <li>
+                                    <code>val</code><strong>(Value): </strong>Used for <strong>immutable</strong>
+                                    variables.
+                                    Once assigned, the value cannot be changed (similar to <code>final</code> in Java).
+                                </li>
+                                <li>
+                                    <code>var</code><strong>(Variable): </strong>Used for <strong>mutable</strong>
+                                    variables.
+                                    The value can be reassigned later in the program.
+                                </li>
+                            </ul>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Q4 -->
-        <div class="accordion-item">
-            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q4">
-                <span class="q-number">4</span> How does Null Safety work in Kotlin?
-            </button>
-            <div id="q4" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    Kotlin avoids null pointer exceptions using nullable types (<code>?</code>)
-                    and the safe‑call operator <code>?.</code>.
+                <!-- Q4 (GIST 1)-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a4">
+                            4. How does Null Safety work in Kotlin?
+                        </button>
+                    </h2>
+                    <div id="a4" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                Kotlin's type system is aimed at eliminating the "Billion Dollar Mistake" of null
+                                references.
+
+                            <ul>
+                                <li>
+                                    <strong>Non-Nullable: </strong>By default, variables cannot hold null.
+                                    <code>var name: String = "Alex"</code> will
+                                    throw a compile error if you try to set it to <code>null</code>.
+                                </li>
+                                <li>
+                                    <strong>Nullable: </strong>To allow a variable to hold null, you must explicitly
+                                    append a <code>?</code> to the type.
+                                </li>
+                                <li>
+                                    <strong>Safe Call Operator (<code>?.</code>): </strong>Executes a method only if the
+                                    variable is not null.
+                                </li>
+                            </ul>
+                            </p>
+                            <br><br>
+                            Kotlin
+                            var name: String?= null // This is allowed
+
+                            <script>
+
+                            </script>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Q5 (GIST 1) -->
-        <div class="accordion-item">
-            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q5">
-                <span class="q-number">5</span> What are Data Classes in Kotlin?
-            </button>
-            <div id="q5" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    A <strong>Data Class</strong> automatically generates methods like
-                    <strong>equals()</strong>, <strong>hashCode()</strong>, and
-                    <strong>toString()</strong>.
-                    <br><br>
-                    <script src="https://gist.github.com/radhapawarofficial/a24f09c46bf897d0effa839a23d64656.js"></script>
+
+
+
+                <!-- Q5 (GIST 2) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a5">
+                            5. What are Data Classes in Kotlin?
+                        </button>
+                    </h2>
+                    <div id="a5" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                A <strong>Data Class</strong> is a concise way to create classes that are primarily used
+                                to hold data. When
+                                you declare a class as <code>data</code>, the compiler automatically generates standard
+                                methods like
+                                <code>equals()</code>, <code>hashCode()</code>, <code>toString()</code>, and
+                                <code>copy()</code>.
+                                <br><br>
+                                Kotlin
+                                data class User(val name: String, val id: Int)
+                            </p>
+                            <script>   </script>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Q6 -->
-        <div class="accordion-item">
-            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q6">
-                <span class="q-number">6</span> What is a Primary Constructor?
-            </button>
-            <div id="q6" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    A <strong>primary constructor</strong> is defined in the class header
-                    and is used to initialize class properties.
+                <!-- Q6 (GIST 3)-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a6">
+                            6. What is a Primary Constructor?
+                        </button>
+                    </h2>
+                    <div id="a6" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                Kotlin allows you to declare a <strong>primary constructor</strong> in the
+                                class header itself. It is the most common way to initialize a class.
+                                <br><br>
+                                Kotlin
+                                class Person(val firstName: String, var age: Int) {
+                                // Initializer block
+                                init {
+                                println("New person initialized: $firstName")
+                                }
+                                }
+
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Q7 -->
-        <div class="accordion-item">
-            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q7">
-                <span class="q-number">7</span> What are Extension Functions?
-            </button>
-            <div id="q7" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    Extension functions allow adding new functions to existing classes
-                    without modifying their source code.
+                <!-- Q7 (GIST 4)-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSeven">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a7">
+                            7. What are Extension Functions?
+                        </button>
+                    </h2>
+                    <div id="a7" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                Extension functions allow you to "add" methods to existing classes without modifying
+                                their source code. For example, you can add a method to the standard <code>String</code>
+                                class:
+                                <br><br>
+                                Kotlin
+                                fun String.removeFirstChar(): String = this.substring(1)
+
+                                // Usage
+                                val result = "Kotlin".removeFirstChar() // result is "otlin"
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Q8 -->
-        <div class="accordion-item">
-            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q8">
-                <span class="q-number">8</span> What is the Elvis Operator?
-            </button>
-            <div id="q8" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    The <strong>Elvis Operator</strong> <code>?:</code> provides a default value
-                    when an expression evaluates to null.
+                <!-- Q8 (GIST 5)-->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingEight">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a8">
+                            8. What is the "Elvis Operator" (?:)?
+                        </button>
+                    </h2>
+                    <div id="a8" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                The <strong>Elvis Operator</strong> is used to provide a default value when an
+                                expression results in <code>null</code>.
+                                <br><br>
+                                Kotlin
+                                val length = name?.length ?: 0
+                                // If name is null, length becomes 0
+
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Q9 -->
-        <div class="accordion-item">
-            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q9">
-                <span class="q-number">9</span> How do ranges and loops work in Kotlin?
-            </button>
-            <div id="q9" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    Kotlin provides readable loops using <code>..</code>, <code>downTo</code>,
-                    and <code>step</code>.
+                <!-- Q9 (GIST 6) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingNine">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a9">
+                            9. How do you handle ranges and loops in Kotlin?
+                        </button>
+                    </h2>
+                    <div id="a9" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                Kotlin provides an intuitive way to work with ranges using the <code>..</code> and
+                                <code>step</code> keywords,
+                                making loops very readable.
+                                <br><br>
+                                Kotlin
+                                for (i in 1..5) print(i) // 12345
+                                for (i in 5 downTo 1) print(i) // 54321
+                                for (i in 1..10 step 2) print(i) // 13579
+
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Q10 (GIST 2) -->
-        <div class="accordion-item">
-            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q10">
-                <span class="q-number">10</span> What is a Lambda Expression in Kotlin?
-            </button>
-            <div id="q10" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    Lambda expressions are anonymous functions commonly used with
-                    higher‑order functions.
-                    <br><br>
-                    <script src="https://gist.github.com/radhapawarofficial/748ab56cb3ffbdf51b8914a9da008e59.js"></script>
+                <!-- Q10 (GIST 7) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTen">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a10">
+                            10. What is a Lambda Expression in Kotlin?
+                        </button>
+                    </h2>
+                    <div id="a10" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                Lambdas are "function literals"—functions that are not declared but passed immediately
+                                as an expression. They are often used for high-order functions like filtering or mapping
+                                collections.
+                                <br><br>
+                                Kotlin
+                                val numbers = listOf(1, 2, 3, 4)
+                                val doubled = numbers.map { it * 2 }
+                                // Result: [2, 4, 6, 8]
+
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-    </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+                <!-- Q11 (GIST 8) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingEleven">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a11">
+                            11. What is the Difference Between val and const val?
+                        </button>
+                    </h2>
+                    <div id="a11" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+
+                            <p>
+                                While both <code>val</code> and <code>const val</code> represent
+                                immutable values, they differ in
+                                <strong>when</strong> they are initialized and
+                                <strong>where</strong> they can be used.
+                            </p>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col"><code>val</code></th>
+                                            <th scope="col"><code>const val</code></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Initialization</th>
+                                            <td>Determined at <strong>runtime</strong>.</td>
+                                            <td>Determined at <strong>compile-time</strong>.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Mutability</th>
+                                            <td>Read-only; can be assigned a function result.</td>
+                                            <td>Truly constant; must be a primitive or String.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Placement</th>
+                                            <td>Can be inside functions, classes, or top-level.</td>
+                                            <td>Only at <strong>top-level</strong> or inside an
+                                                <code>object / companion object</code>.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Performance</th>
+                                            <td>Access involves a getter method call.</td>
+                                            <td>Inlined by the compiler (faster access).</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p>
+                                <strong>Example Usage:</strong>
+                            </p>
+
+                            <!-- GitHub Gist Embed for Kotlin Example -->
+                            <script src="https://gist.github.com/USERNAME/GIST_ID.js"></script>
+
+                            <p>
+                            <ul>
+                                <li>
+                                    <code>const val</code> is used for
+                                    hardcoded values that never change
+                                    such as (API keys or mathematical constants).
+                                </li>
+                                <li>
+                                    <code>val</code> is used for values that
+                                    remain constant after being calculated
+                                    during the application's execution.
+                                </li>
+
+                            </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q12 (GIST 9) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwelve">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a12">
+                            12. What is the init block and when does it execute?
+                        </button>
+                    </h2>
+                    <div id="a12" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>The <code>init</code> Block in Kotlin</strong><br>
+                                The <code>init</code> block is an initializer block used to run setup logic
+                                or validate parameters immediately after an instance of a class is created.
+                                It acts as a bridge for logic that cannot be placed directly within the primary
+                                constructor declaration.
+
+                            <ul>
+                                <li>
+                                    <strong>Execution Timing: </strong>It executes immediately after the primary
+                                    constructor is
+                                    called and before any secondary constructors are executed.
+                                </li>
+                                <li>
+                                    <strong>Property Initialization: </strong>It
+                                    runs in the order it appears in the class body, interspersed with property
+                                    initializers.
+                                </li>
+                                <li>
+                                    <strong>Access: </strong>It has direct access to the parameters defined in the
+                                    primary
+                                    constructor.
+                                </li>
+                            </ul>
+
+                            <strong>Comparison: Primary Constructor vs. <code>init</code> Block</strong>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Primary Constructor</th>
+                                            <th scope="col"><code>init</code> Block</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Purpose</th>
+                                            <td> Declares properties and defines entry point.</td>
+                                            <td>Executes logic/code (loops, validation, logging).</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Code Execution</th>
+                                            <td>Cannot contain code blocks.</td>
+                                            <td>Can contain any valid Kotlin code.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Quantity</th>
+                                            <td>Only one per class.</td>
+                                            <td>Multiple <code>init</code> blocks allowed (run top-to-bottom).
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <strong>Code Example: </strong>
+                            <br>
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q13 (GIST 10) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThirteen">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a13">
+                            13. How does inheritance work in Kotlin (and why are classes final by default)?
+                        </button>
+                    </h2>
+                    <div id="a13" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Inheritance in Kotlin</strong><br>
+                                In Kotlin, inheritance allows a class (subclass) to inherit properties and methods from
+                                another class (superclass). By design, Kotlin favors <strong>composition over
+                                    inheritance</strong>,
+                                leading to a stricter default behavior than Java.
+
+                            <ul>
+                                <li>
+                                    <strong>The <code>open</code> Keyword: </strong>All classes and methods in Kotlin
+                                    are <code>final</code> by
+                                    default, meaning they cannot be inherited or overridden unless explicitly marked
+                                    with the <code>open</code> keyword.
+                                </li>
+                                <li>
+                                    <strong>The <code>override</code> Keyword: </strong>Subclasses must use the
+                                    <code>override</code> modifier
+                                    when redefining a method or property from the superclass.
+                                </li>
+                                <li>
+                                    <strong>Single Inheritance: </strong>A class can only inherit from one superclass
+                                    (but can implement multiple interfaces).
+                                </li>
+                                <li>
+                                    <strong>Syntax: </strong>The colon (<code>:</code>) is used for both inheritance and
+                                    interface
+                                    implementation.
+                                </li>
+                            </ul>
+
+                            <strong>Why Classes are Final by Default</strong><br>
+                            Kotlin follows the design principle "Design and document for inheritance or else prohibit
+                            it," as popularized by Joshua Bloch in Effective Java.
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Reason</th>
+                                            <th scope="col">Impact</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Fragile Base Class Problem</th>
+                                            <td>Prevents developers from accidentally breaking subclasses when changing
+                                                the internal logic of a base class.</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Encapsulation</th>
+                                            <td>Ensures that a class’s behavior is predictable and cannot be altered
+                                                externally without the author's permission.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Performance</th>
+                                            <td>Allows the compiler to perform optimizations (like inlining) because it
+                                                knows a method's implementation cannot be swapped out via a subclass.
+                                            </td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">API Stability</th>
+                                            <td>Forces library authors to be intentional about which parts of their code
+                                                are intended for extension.</td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <strong>Example Implementation: </strong>
+                            <br>
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q14 (GIST 11) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFourteen">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a14">
+                            14. What is the open keyword and when should you use it?
+                        </button>
+                    </h2>
+                    <div id="a14" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>The <code>open</code> Keyword in Kotlin</strong><br>
+                                In Kotlin, the <code>open</code> keyword is the opposite of <code>final</code>. It
+                                explicitly permits a class or a
+                                member (method/property) to be subclassed or overridden. Since Kotlin classes are
+                                <strong>closed by default</strong> to ensure robustness, you must use <code>open</code>
+                                to enable inheritance.
+                            <ul>
+                                <li>
+                                    <strong>For Classes: </strong>Applying <code>open</code> to a class header allows
+                                    other classes
+                                    to inherit from it.
+                                </li>
+                                <li>
+                                    <strong>For Members: </strong>Applying <code>open</code> to a property or function
+                                    within an <code>open</code>
+                                    class allows subclasses to provide a custom implementation using the
+                                    <code>override</code>
+                                    keyword.
+                                </li>
+                            </ul>
+
+                            <strong>When to Use <code>open</code></strong><br>
+                            You should use the <code>open</code> keyword specifically when you intend to design a class
+                            for extension. Common scenarios include:
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Scenario</th>
+                                            <th scope="col">Application</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Abstract Base Logic</th>
+                                            <td>When creating a base class that holds shared logic but requires
+                                                specialization (e.g., a <code>BaseActivity</code> in Android).</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Template Method Pattern</th>
+                                            <td>When a class defines a fixed algorithm but allows certain steps (marked
+                                                <code>open</code>) to be modified by subclasses.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Testing/Mocking</th>
+                                            <td>When using certain mocking frameworks (like Mockito) that require
+                                                classes to be non-final to create "mock" versions of them.
+                                            </td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">UI Components</th>
+                                            <td>When building a library where users need to extend your views or
+                                                components to add custom behavior.</td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <strong>Example: </strong>
+                            <br>
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q15 (GIST 12) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFifteen">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a15">
+                            15. What are Abstract Classes vs. Interfaces in Kotlin?
+                        </button>
+                    </h2>
+                    <div id="a15" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Abstract Classes vs. Interfaces in Kotlin</strong><br>
+                                In Kotlin, both <strong>Abstract Classes</strong> and <strong>Interfaces</strong> are
+                                used to define contracts for
+                                subclasses. However, they differ significantly in their structural capabilities and how
+                                they store state.
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Abstract Class</th>
+                                            <th scope="col">Interface</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">State (Properties)</th>
+                                            <td>Can store state (can have instance fields/backing fields).</td>
+                                            <td>Cannot store state (no backing fields allowed).</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Constructor</th>
+                                            <td>Can have constructors with parameters.</td>
+                                            <td>Cannot have constructors.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Inheritance</th>
+                                            <td>A class can inherit from only <strong>one</strong> abstract class.</td>
+                                            <td>A class can implement <strong>multiple</strong> interfaces.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Default Behavior</th>
+                                            <td>Can have both abstract and fully implemented methods.</td>
+                                            <td>Can have abstract methods or methods with default implementations.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Visibility</th>
+                                            <td>Members can be <code>protected</code> or <code>internal</code>.</td>
+                                            <td>Members are always <code>public</code> (though can be
+                                                <code>private</code> in some contexts).
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <strong>When to Use Which</strong><br>
+
+                            <ul>
+                                <li>
+                                    <strong>Use Abstract Classes </strong>when you want to share a common base of code
+                                    and state among closely related classes (e.g., a <code>Vehicle</code> base class
+                                    that stores a
+                                    <code>fuelLevel</code> property).
+                                </li>
+                                <li>
+                                    <strong>Use Interfaces </strong>when you want to define a common behavior (a
+                                    "can-do" relationship) across unrelated classes (e.g., both a <code>User</code> and
+                                    a <code>Document</code>
+                                    might implement <code>Printable</code>).
+                                </li>
+                            </ul>
+
+                            <strong>Code Example: </strong>
+                            <br>
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q16 (GIST 13) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSixteen">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a16">
+                            16. How do you implement "Multiple Interfaces" in a single class?
+                        </button>
+                    </h2>
+                    <div id="a16" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Implementing Multiple Interfaces</strong><br>
+                                In Kotlin, a class can implement any number of interfaces. This is the primary way to
+                                achieve polymorphism across different behavioral sets without the limitations of single
+                                inheritance.
+
+                            <ul>
+                                <li>
+                                    <strong>Syntax: </strong>List the interfaces separated by commas after the colon
+                                    (<code>:</code>).
+                                </li>
+                                <li>
+                                    <strong>Conflict Resolution: </strong>If two interfaces provide a default
+                                    implementation for a method with the same name, the subclass <strong>must</strong>
+                                    override that
+                                    method to resolve the ambiguity.
+                                </li>
+                                <li>
+                                    <strong>Super Calls: </strong>To call a specific interface's implementation within
+                                    the override, use the <code>super<InterfaceName>.methodName()</code> syntax.
+                                </li>
+                            </ul>
+
+                            <strong>Handling Method Conflicts</strong><br>
+                            When multiple interfaces share a method signature,
+                            Kotlin requires explicit resolution to
+                            prevent the "Diamond Problem."
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Component</th>
+                                            <th scope="col">Usage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Override</th>
+                                            <td>Mandatory if method signatures collide.</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><code>super A</code></th>
+                                            <td>Directs the compiler to use Interface A’s logic.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><code>super B</code></th>
+                                            <td>Directs the compiler to use Interface B’s logic.
+                                            </td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <strong>Code Example: </strong>
+                            <br>
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q17 (GIST 14) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingSeventeen">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a17">
+                            17. What is a Sealed Class and how does it differ from an Enum?
+                        </button>
+                    </h2>
+                    <div id="a17" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Sealed Classes in Kotlin</strong><br>
+                                A <strong>Sealed Class</strong> is used to represent restricted class hierarchies. It
+                                allows you to
+                                define a set of subclasses that are known at compile-time, ensuring that no other
+                                subclasses can be created outside the file where the sealed class is defined.
+
+                            <ul>
+                                <li>
+                                    <strong>Exhaustive Checks: </strong>When used in a <code>when</code> expression, the
+                                    compiler
+                                    verifies that all possible subclasses are covered, removing the need for an
+                                    <code>else</code>
+                                    branch.
+                                </li>
+                                <li>
+                                    <strong>State Management: </strong>Unlike Enums, each subclass of a sealed class can
+                                    have multiple instances and hold unique data (state).
+                                </li>
+                            </ul>
+
+                            <strong>Sealed Class vs. Enum</strong><br>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Enum Class</th>
+                                            <th scope="col">Sealed Class</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Instance Constraints</th>
+                                            <td>Only one instance of each constant (Singleton).</td>
+                                            <td>Can have multiple instances of each subclass.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Data/State</th>
+                                            <td>All constants share the same properties/types.</td>
+                                            <td>Each subclass can have different properties and methods.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Hierarchy</th>
+                                            <td>Flat list of values.</td>
+                                            <td>Can be a full hierarchy (subclasses, data classes, or objects).</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Usage</th>
+                                            <td>Best for constant values (Days of week, Colors).</td>
+                                            <td>Best for state-machine logic (Success, Error, Loading).</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <strong>Code Example: </strong>
+                            <br>
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q18 (GIST 15) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingEighteen">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a18">
+                            18. What is the object keyword (Singleton pattern) in Kotlin?
+                        </button>
+                    </h2>
+                    <div id="a18" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>The <code>object</code> Keyword in Kotlin</strong><br>
+                                In Kotlin, the <code>object</code> keyword is a thread-safe, first-class citizen used to
+                                define a
+                                <strong>Singleton</strong>—a class that has exactly one instance. Unlike Java, where you
+                                must manually
+                                implement the Singleton pattern using private constructors and static methods, Kotlin
+                                handles the instantiation and lifecycle automatically.
+
+                            <ul>
+                                <li>
+                                    <strong>Initialization: </strong>The object is initialized lazily the first time it
+                                    is accessed.
+                                </li>
+                                <li>
+                                    <strong>Thread Safety: </strong>The initialization is thread-safe by default.
+                                </li>
+                                <li>
+                                    <strong>Functionality: </strong>Objects can inherit from classes and implement
+                                    interfaces, just like regular classes.
+                                </li>
+                                <li>
+                                    <strong>Global Access: </strong>It can be accessed directly by its name without
+                                    using a constructor.
+                                </li>
+                            </ul>
+
+                            <strong>Use Cases for <code>object</code></strong><br>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Purpose</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Singleton Object</th>
+                                            <td>For global utility classes, database managers, or configuration holders.
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Companion Object</th>
+                                            <td>To define members that belong to the class rather than instances
+                                                (replaces Java's <code>static</code>).</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Anonymous Object</th>
+                                            <td>Created using <code>object : InterfaceName { ... } </code>to implement
+                                                interfaces or
+                                                override classes on the fly.</td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <strong>Code Example: </strong>
+                            <br>
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q19 (GIST 16) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingNineteen">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a19">
+                            19. What is a Companion Object and how does it replace static members?
+                        </button>
+                    </h2>
+                    <div id="a19" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>The <code>companion object</code> in Kotlin</strong><br>
+                                A <code>companion object</code> is a specialized object declared inside a class. It is
+                                used to define
+                                members (properties and methods) that belong to the <strong>class itself</strong> rather
+                                than to specific
+                                instances of that class. <br>
+
+                                In Java, these are called <code>static</code> members. Kotlin does not have the
+                                <code>static</code> keyword;
+                                instead, it uses companion objects to group these members while maintaining a strictly
+                                object-oriented structure.
+                            <ul>
+                                <li>
+                                    <strong>Access: </strong>Members are called using the class name (e.g.,
+                                    <code>MyClass.myFunction()</code>).
+                                </li>
+                                <li>
+                                    <strong>Interface Support: </strong>Unlike Java statics, a companion object can
+                                    implement interfaces and extend classes.
+                                </li>
+                                <li>
+                                    <strong>Quantity: </strong>Only one companion object is allowed per class.
+                                </li>
+                                <li>
+                                    <strong>Access to Private Members: </strong>The companion object can access private
+                                    members of the containing class.
+                                </li>
+                            </ul>
+
+                            <strong>Companion Object vs. Java Static</strong><br>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Java <code>static</code></th>
+                                            <th scope="col">Kotlin <code>companion object</code></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Type</th>
+                                            <td>A keyword for members.</td>
+                                            <td>A real object instance.</td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Interfaces</th>
+                                            <td>Cannot implement interfaces.</td>
+                                            <td>Can implement interfaces.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Inheritance</th>
+                                            <td>Does not support polymorphism.</td>
+                                            <td>Can extend other classes.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Naming</th>
+                                            <td>N/A</td>
+                                            <td>Can be named (default is <code>Companion</code>).</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <strong>Code Example: Factory Pattern </strong><br>
+                            A common use case for companion objects is the Factory Pattern, where you hide the
+                            constructor and provide a static-like method to create instances.
+                            <br>
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Q20 (GIST 17) -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwenty">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#a20">
+                            20. What are Higher-Order Functions?
+                        </button>
+                    </h2>
+                    <div id="a20" class="accordion-collapse collapse show" data-bs-parent="#KotlinFAQ's">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Higher-Order Functions in Kotlin</strong><br>
+                                A <strong>Higher-Order Function</strong> is a function that does at least one of the
+                                following:
+                            <ul>
+                                <li>
+                                    Takes one or more functions as <strong>parameters.</strong>
+                                </li>
+                                <li>
+                                    <strong>Returns </strong>a function as its result.
+                                </li>
+                            </ul>
+
+                            In Kotlin, functions are "first-class citizens," meaning they can be stored in variables and
+                            passed around just like integers or strings. This is a core pillar of functional programming
+                            in Kotlin. <br><br>
+                            <strong>Key Components</strong><br><br>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Component</th>
+                                            <th scope="col">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Function Type</th>
+                                            <td>The signature of the function, e.g., <code>(Int, Int) -> Int.</code>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Lambda Expression</th>
+                                            <td>The actual block of code passed to the function, e.g.,
+                                                <code>{ a, b -> a + b }.</code>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><code>it</code> Keyword</th>
+                                            <td>Implicit name for a single parameter in a lambda.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <strong>Code Examples: </strong><br><br>
+                            <ol>
+                                <li>
+                                    <strong>Passing a Function as a Parameter</strong>
+                                    <p>
+                                        This is commonly used for callbacks or defining custom behavior for a process.
+
+                                        <script>
+
+                                        </script>
+                                    </p>
+                                </li>
+                                <li>
+                                    <strong>Returning a Function </strong>
+                                    <p>
+                                        Useful for "function factories" where the output depends on the input
+                                        configuration.
+
+                                        <script>
+
+                                        </script>
+                                    </p>
+                                </li>
+                            </ol>
+
+                            <strong>Common Built-in Higher-Order Functions</strong><br>
+                            Kotlin's standard library uses these extensively for collection processing:
+                            <ul>
+                                <li>
+                                    <code>.filter { ... }</code>: Takes a predicate function to filter a list.
+                                </li>
+                                <li>
+                                    <code>.map { ... }</code>: Takes a transformation function to change list items.
+                                </li>
+                                <li>
+                                    <code>.forEach { ... }</code>: Takes a function to execute for every element.
+                                </li>
+                            </ul>
+                            <br>
+                            </p>
+                            <script>
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
