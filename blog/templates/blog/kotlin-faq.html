@@ -161,14 +161,8 @@
                                     variable is not null.
                                 </li>
                             </ul>
-                            </p>
-                            <br><br>
-                            Kotlin
-                            var name: String?= null // This is allowed
-
-                            <script>
-
-                            </script>
+                            </p>                                            
+                            <script src="https://gist.github.com/radhapawarofficial/a24f09c46bf897d0effa839a23d64656.js"></script>
 
                         </div>
                     </div>
@@ -192,12 +186,9 @@
                                 you declare a class as <code>data</code>, the compiler automatically generates standard
                                 methods like
                                 <code>equals()</code>, <code>hashCode()</code>, <code>toString()</code>, and
-                                <code>copy()</code>.
-                                <br><br>
-                                Kotlin
-                                data class User(val name: String, val id: Int)
+                                <code>copy()</code>.                                                               
                             </p>
-                            <script>   </script>
+                            <script src="https://gist.github.com/radhapawarofficial/6fa5f94136749e0e25bc2394907bd5b6.js"></script>
                         </div>
                     </div>
                 </div>
@@ -213,21 +204,9 @@
                         <div class="accordion-body">
                             <p>
                                 Kotlin allows you to declare a <strong>primary constructor</strong> in the
-                                class header itself. It is the most common way to initialize a class.
-                                <br><br>
-                                Kotlin
-                                class Person(val firstName: String, var age: Int) {
-                                // Initializer block
-                                init {
-                                println("New person initialized: $firstName")
-                                }
-                                }
-
+                                class header itself. It is the most common way to initialize a class.                                                             
                             </p>
-                            <script>
-
-                            </script>
-                        </div>
+                           <script src="https://gist.github.com/radhapawarofficial/69f4f0136d1d4de31afd2afbd4441ac2.js"></script>
                     </div>
                 </div>
 
@@ -245,15 +224,8 @@
                                 their source code. For example, you can add a method to the standard <code>String</code>
                                 class:
                                 <br><br>
-                                Kotlin
-                                fun String.removeFirstChar(): String = this.substring(1)
-
-                                // Usage
-                                val result = "Kotlin".removeFirstChar() // result is "otlin"
                             </p>
-                            <script>
-
-                            </script>
+                            <script src="https://gist.github.com/radhapawarofficial/7365330a9e23911f547a50330cddc095.js"></script>
                         </div>
                     </div>
                 </div>
@@ -269,16 +241,9 @@
                         <div class="accordion-body">
                             <p>
                                 The <strong>Elvis Operator</strong> is used to provide a default value when an
-                                expression results in <code>null</code>.
-                                <br><br>
-                                Kotlin
-                                val length = name?.length ?: 0
-                                // If name is null, length becomes 0
-
+                                expression results in <code>null</code>.                                                              
                             </p>
-                            <script>
-
-                            </script>
+                            <script src="https://gist.github.com/radhapawarofficial/d77bce5850553009a3ecda543831db97.js"></script>
                         </div>
                     </div>
                 </div>
@@ -295,17 +260,9 @@
                             <p>
                                 Kotlin provides an intuitive way to work with ranges using the <code>..</code> and
                                 <code>step</code> keywords,
-                                making loops very readable.
-                                <br><br>
-                                Kotlin
-                                for (i in 1..5) print(i) // 12345
-                                for (i in 5 downTo 1) print(i) // 54321
-                                for (i in 1..10 step 2) print(i) // 13579
-
+                                making loops very readable.                                                             
                             </p>
-                            <script>
-
-                            </script>
+                            <script src="https://gist.github.com/radhapawarofficial/7bc243bddb7437ac0e91140c7095fb92.js"></script>
                         </div>
                     </div>
                 </div>
@@ -323,18 +280,10 @@
                                 Lambdas are "function literals"—functions that are not declared but passed immediately
                                 as an expression. They are often used for high-order functions like filtering or mapping
                                 collections.
-                                <br><br>
-                                Kotlin
-                                val numbers = listOf(1, 2, 3, 4)
-                                val doubled = numbers.map { it * 2 }
-                                // Result: [2, 4, 6, 8]
-
-                            </p>
-                            <script>
-
-                            </script>
+                                <br><br>                             
+                            </p>                            
+                            <script src="https://gist.github.com/radhapawarofficial/748ab56cb3ffbdf51b8914a9da008e59.js"></script>                                                   </div>
                         </div>
-                    </div>
                 </div>
 
 
@@ -396,8 +345,7 @@
                             </p>
 
                             <!-- GitHub Gist Embed for Kotlin Example -->
-                            <script src="https://gist.github.com/USERNAME/GIST_ID.js"></script>
-
+                            <script src="https://gist.github.com/radhapawarofficial/0320ce5b9383db07779ba68ed960aa93.js"></script>
                             <p>
                             <ul>
                                 <li>
@@ -483,13 +431,9 @@
                                     </tbody>
                                 </table>
                             </div>
-
-                            <strong>Code Example: </strong>
-                            <br>
+                            <strong>Code Example: </strong>                            
                             </p>
-                            <script>
-
-                            </script>
+                            <script src="https://gist.github.com/radhapawarofficial/1691d45220158527c5bfd1734e8e0e3a.js"></script>
                         </div>
                     </div>
                 </div>
@@ -575,12 +519,9 @@
                                 </table>
                             </div>
 
-                            <strong>Example Implementation: </strong>
-                            <br>
+                            <strong>Example Implementation: </strong>                            
                             </p>
-                            <script>
-
-                            </script>
+                            <script src="https://gist.github.com/radhapawarofficial/71a6044c9e7f979af4b785c0eab8e3cb.js"></script>
                         </div>
                     </div>
                 </div>
@@ -662,9 +603,7 @@
                             <strong>Example: </strong>
                             <br>
                             </p>
-                            <script>
-
-                            </script>
+                            <script src="https://gist.github.com/radhapawarofficial/11d98ea3b0dc498cd9e2af6510523a3d.js"></script>
                         </div>
                     </div>
                 </div>
@@ -744,12 +683,9 @@
                                 </li>
                             </ul>
 
-                            <strong>Code Example: </strong>
-                            <br>
+                            <strong>Code Example: </strong>                            
                             </p>
-                            <script>
-
-                            </script>
+                            <script src="https://gist.github.com/radhapawarofficial/b397508f018195048958a31bfe7d1cb5.js"></script>
                         </div>
                     </div>
                 </div>
@@ -820,12 +756,9 @@
                                 </table>
                             </div>
 
-                            <strong>Code Example: </strong>
-                            <br>
+                            <strong>Code Example: </strong>                            
                             </p>
-                            <script>
-
-                            </script>
+                            <script src="https://gist.github.com/radhapawarofficial/3fbaf5b05d6cfbd5efe272ef37242031.js"></script>
                         </div>
                     </div>
                 </div>
@@ -897,12 +830,9 @@
                                 </table>
                             </div>
 
-                            <strong>Code Example: </strong>
-                            <br>
+                            <strong>Code Example: </strong>                            
                             </p>
-                            <script>
-
-                            </script>
+                            <script src="https://gist.github.com/radhapawarofficial/63b304453675aa1b30f68c055c2fac3d.js"></script>
                         </div>
                     </div>
                 </div>
@@ -980,9 +910,7 @@
                             <strong>Code Example: </strong>
                             <br>
                             </p>
-                            <script>
-
-                            </script>
+                            <script src="https://gist.github.com/radhapawarofficial/a1ef92d650ba0bb8cbaed20e067f4be1.js"></script>
                         </div>
                     </div>
                 </div>
@@ -1069,9 +997,7 @@
                             constructor and provide a static-like method to create instances.
                             <br>
                             </p>
-                            <script>
-
-                            </script>
+                            <script src="https://gist.github.com/radhapawarofficial/536ff6fa11486e754ab8bc9cae3a4c0d.js"></script>
                         </div>
                     </div>
                 </div>
@@ -1140,9 +1066,7 @@
                                     <p>
                                         This is commonly used for callbacks or defining custom behavior for a process.
 
-                                        <script>
-
-                                        </script>
+                                        <script src="https://gist.github.com/radhapawarofficial/7e47a9fdbd29f0a805aaea015a8112f1.js"></script>
                                     </p>
                                 </li>
                                 <li>
@@ -1151,9 +1075,7 @@
                                         Useful for "function factories" where the output depends on the input
                                         configuration.
 
-                                        <script>
-
-                                        </script>
+                                        <script src="https://gist.github.com/radhapawarofficial/60d072d7d5429fc84d3928086b7bbbeb.js"></script>
                                     </p>
                                 </li>
                             </ol>
