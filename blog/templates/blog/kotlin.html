@@ -3198,7 +3198,8 @@
                                 function using <code>withContext</code>. This ensures your code is
                                 <strong>Main-Safe</strong>.
                             </p>
-                            <script src="https://gist.github.com/radhapawarofficial/927698ca106b003052e78a517c46ae09.js"></script>
+                            <script
+                                src="https://gist.github.com/radhapawarofficial/927698ca106b003052e78a517c46ae09.js"></script>
 
                             <p class="h5"><strong>Dispatcher Selection Summary</strong></p>
                             <p><strong>Rule of Thumb:</strong></p>
@@ -3212,7 +3213,7 @@
                                 <li>
                                     <strong>Touching a View/UI?</strong> Use <code>Dispatchers.Main</code>.
                                 </li>
-                            </ol>                           
+                            </ol>
 
                         </div>
                     </div>
@@ -3318,7 +3319,8 @@
                                 until all coroutines launched inside it have finished.
                             </p>
 
-                            <script src="https://gist.github.com/radhapawarofficial/41658338724f30d596d65307fc102257.js"></script>
+                            <script
+                                src="https://gist.github.com/radhapawarofficial/41658338724f30d596d65307fc102257.js"></script>
 
                             <p class="h5"><strong>Common Scopes in Development</strong></p>
                             <ul>
@@ -3334,7 +3336,7 @@
                                     <strong>runBlocking:</strong> Used in main functions or tests to bridge
                                     synchronous and asynchronous code.
                                 </li>
-                            </ul>      
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -3411,7 +3413,8 @@
 
                             <p class="h5"><strong>Basic Code Example</strong></p>
 
-                            <script src="https://gist.github.com/radhapawarofficial/11930f3249c4bda4c32cfe948641046b.js"></script>
+                            <script
+                                src="https://gist.github.com/radhapawarofficial/11930f3249c4bda4c32cfe948641046b.js"></script>
 
                             <p class="h5"><strong>Reactive Stream Handling</strong></p>
                             <p>Flow is designed to handle complex asynchronous streams with built-in support for:
@@ -3460,10 +3463,1214 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>            
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a41">
+                            41. How does Kotlin achieve 100% interoperability with Java?
+                        </button>
+                    </h2>
+                    <div id="a41" class="accordion-collapse collapse" data-bs-parent="#KotlinFAQ">
+                        <div class="accordion-body">
+                            <p class="h5"><strong>Kotlin-Java Interoperability</strong></p>
+
+                            <p>
+                                Kotlin is designed to be <strong>100% interoperable with Java</strong>, meaning you can
+                                have Java and Kotlin files side-by-side in the same project, call Java code from Kotlin,
+                                and vice versa, without any "glue" code or wrappers.
+                            </p>
+
+                            <p class="h5"><strong>How It Works Under the Hood</strong></p>
+                            <p>
+                                The primary reason for this seamless interaction is that both languages compile to the
+                                same <strong>JVM Bytecode</strong>.
+                            </p>
+
+
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Mechanism</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Bytecode Compatibility</th>
+                                            <td>Both compilers (<code>javac</code> and <code>kotlinc</code>) produce
+                                                <code>.class</code> files that the Java Virtual Machine (JVM) executes
+                                                identically.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Standard Library</th>
+                                            <td>Kotlin's standard library is built on top of the Java Class Library. For
+                                                example, a Kotlin <code>List</code> is actually a
+                                                <code>java.util.List</code> at runtime.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Static Mapping</th>
+                                            <td>Kotlin "maps" its types to Java types. A Kotlin <code>Int</code> becomes
+                                                a primitive <code>int</code> in Java, and a nullable <code>Int?</code>
+                                                becomes a boxed <code>java.lang.Integer</code>.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>Calling Java from Kotlin</strong></p>
+                            <p>Kotlin makes calling Java feel native by automating several Java conventions:</p>
+                            <ul>
+                                <li>
+                                    <strong>Getters and Setters:</strong> Java methods like <code>getName()</code> and
+                                    <code>setName()</code> are accessed as simple properties in Kotlin:
+                                    <code>user.name</code>.
+                                </li>
+                                <li>
+                                    <strong>SAM Conversion:</strong> You can pass a lambda to a Java interface that has
+                                    a Single Abstract Method (like <code>Runnable</code> or
+                                    <code>OnClickListener</code>).
+                                </li>
+                                <li>
+                                    <strong>Nullability:</strong> Since Java lacks built-in null safety, Kotlin treats
+                                    Java types as <strong>Platform Types</strong> (<code>String!</code>).
+                                </li>
+                            </ul>
+
+                            <p class="h5"><strong>Calling Kotlin from Java (The Annotations)</strong></p>
+                            <p>
+                                To make Kotlin-specific features (like top-level functions) look "Java-friendly," Kotlin
+                                provides specialized annotations:
+                            </p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Annotation</th>
+                                            <th>Purpose</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>@JvmName</code></td>
+                                            <td>Changes the name of the generated Java class or method.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>@JvmStatic</code></td>
+                                            <td>Makes a function in a Kotlin <code>object</code> or
+                                                <code>companion object</code> a real static method in Java.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>@JvmField</code></td>
+                                            <td>Exposes a Kotlin property as a public field rather than a private field
+                                                with getters/setters.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>@JvmOverloads</code></td>
+                                            <td>Instructs the compiler to generate multiple Java overloads for a
+                                                function with default parameters.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>Example: @JvmOverloads</strong></p>
+                            <p><strong>Kotlin Side:</strong></p>
+                            <script
+                                src="https://gist.github.com/radhapawarofficial/492c523cad2954bfc9e60e54aab2a171.js"></script>
+
+                            <p><strong>Java Side (without @JvmOverloads): </strong>Java would only see connect(url,
+                                timeout).
+                                You'd be forced to provide the timeout.</p>
+                            <p><strong>Java Side (with @JvmOverloads): </strong> Kotlin generates two methods for Java:
+                            </p>
+                            <ol>
+                                <li><code>connect(String url)</code></li>
+                                <li><code>connect(String url, int timeout)</code></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a42">
+                            42. What is the @JvmStatic and @JvmOverloads annotation?
+                        </button>
+                    </h2>
+                    <div id="a42" class="accordion-collapse collapse" data-bs-parent="#KotlinFAQ">
+                        <div class="accordion-body">
+                            <p class="h5"><strong>Interoperability Annotations: @JvmStatic and @JvmOverloads</strong>
+                            </p>
+
+                            <p>
+                                While Kotlin and Java are 100% interoperable, Kotlin has language features (like
+                                companion objects and default parameters) that don't exist in Java. These annotations
+                                tell the Kotlin compiler how to generate bytecode that looks and behaves like "standard"
+                                Java code.
+                            </p>
+
+                            <p class="h5"><strong>1. @JvmStatic</strong></p>
+                            <p>
+                                In Kotlin, you use <code>object</code> or <code>companion object</code> to define
+                                members that should be "static-like." However, by default, Java sees these as members of
+                                a singleton instance called <code>INSTANCE</code> or <code>Companion</code>.
+                            </p>
+
+
+
+                            <ul>
+                                <li><strong>Without @JvmStatic:</strong> Java must call
+                                    <code>MyClass.Companion.doSomething()</code>.
+                                </li>
+                                <li><strong>With @JvmStatic:</strong> Kotlin generates a <strong>real static
+                                        method</strong> in the class, allowing Java to call
+                                    <code>MyClass.doSomething()</code> directly.
+                                </li>
+                            </ul>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Calling from Kotlin</th>
+                                            <th scope="col">Java (Standard)</th>
+                                            <th scope="col">Java (with @JvmStatic)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Method</th>
+                                            <td><code>Utils.log()</code></td>
+                                            <td><code>Utils.INSTANCE.log()</code></td>
+                                            <td><code>Utils.log()</code></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Companion</th>
+                                            <td><code>User.create()</code></td>
+                                            <td><code>User.Companion.create()</code></td>
+                                            <td><code>User.create()</code></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>2. @JvmOverloads</strong></p>
+                            <p>
+                                Kotlin allows <strong>Default Arguments</strong>, so you can define one function that
+                                covers multiple use cases. Java does not support default arguments; it uses
+                                <strong>Method Overloading</strong>.
+                            </p>
+
+                            <ul>
+                                <li><strong>The Problem:</strong> Without this annotation, Java only sees the "full"
+                                    version of the function (the one with all parameters).</li>
+                                <li><strong>The Solution:</strong> <code>@JvmOverloads</code> instructs the compiler to
+                                    generate multiple overloaded versions of the function for Java.</li>
+                            </ul>
+
+                            <p class="h6"><strong>Code Comparison</strong></p>
+                            <p><strong>Kotlin Definition:</strong></p>
+
+                            <script
+                                src="https://gist.github.com/radhapawarofficial/9ee561e917cdc57a3112497a345e8c3b.js"></script>
+
+                            <p><strong>Generated Java Overloads:</strong></p>
+                            <p>Because there are 2 default parameters, Kotlin generates 3 versions for Java:</p>
+                            <ol>
+                                <li><code>displayMessage(String msg)</code></li>
+                                <li><code>displayMessage(String msg, int importance)</code></li>
+                                <li><code>displayMessage(String msg, int importance, boolean uppercase)</code></li>
+                            </ol>
+
+                            <p class="h5"><strong>Summary of Benefits</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Annotation</th>
+                                            <th>Why use it?</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>@JvmStatic</code></td>
+                                            <td>Makes Kotlin singletons feel like "Utility Classes" in Java.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>@JvmOverloads</code></td>
+                                            <td>Saves Java callers from having to pass every single argument when
+                                                defaults exist.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a43">
+                            43. How do you handle Checked Exceptions when calling Kotlin from Java?
+                        </button>
+                    </h2>
+                    <div id="a43" class="accordion-collapse collapse" data-bs-parent="#KotlinFAQ">
+                        <div class="accordion-body">
+                            <p class="h5"><strong>Handling Checked Exceptions with @Throws</strong></p>
+
+                            <p>
+                                In Kotlin, <strong>all exceptions are unchecked</strong>. This means the compiler never
+                                forces you to wrap code in a try-catch block. However, Java has <strong>Checked
+                                    Exceptions</strong>. If a Java programmer calls a Kotlin function that throws an
+                                exception, the Java compiler won't know it needs to be caught unless you signal it.
+                            </p>
+
+                            <p class="h5"><strong>The Problem: The "Silent" Exception</strong></p>
+                            <p>
+                                Without the @Throws annotation, the Kotlin compiler does not declare the exception in
+                                the generated Java method signature. If a Java developer tries to catch a specific
+                                exception like <code>IOException</code>, the Java compiler will throw an error stating
+                                that the exception is never thrown in the corresponding try statement.
+                            </p>
+
+
+
+                            <p class="h5"><strong>The Solution: The @Throws Annotation</strong></p>
+                            <p>
+                                By applying <code>@Throws(ExceptionClass::class)</code>, you instruct the Kotlin
+                                compiler to generate a Java-compatible method signature that includes the
+                                <code>throws</code> clause.
+                            </p>
+
+                            <p class="h5"><strong>Code Comparison</strong></p>
+                            <p class="h5"><strong>Kotlin Definition:</strong></p>
+
+                            <script
+                                src="https://gist.github.com/radhapawarofficial/c15cfb94e2369297074e06ee579bae4c.js"></script>
+
+                            <p class="h5"><strong>Generated Java Signature:</strong></p>
+                            <script
+                                src="https://gist.github.com/radhapawarofficial/217c2a91ba8b5759b7568180a066cb77.js"></script>
+
+                            <p class="h5"><strong>Usage Summary</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Kotlin Behavior</th>
+                                            <th scope="col">Java Behavior (Calling Kotlin)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">No Annotation</th>
+                                            <td>Works fine; no <code>try-catch</code> required.</td>
+                                            <td><strong>Cannot</strong> catch specific exceptions; Java thinks it is
+                                                unchecked.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">With @Throws</th>
+                                            <td>Works fine; no <code>try-catch</code> required.</td>
+                                            <td><strong>Must</strong> catch the exception or declare it, just like a
+                                                native Java method.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>When to Use It</strong></p>
+                            <ul>
+                                <li>When writing a library in Kotlin that will be consumed by Java developers.</li>
+                                <li>When the function performs operations known to fail (I/O, Database, JSON parsing)
+                                    where a Java caller would expect a checked exception.</li>
+                            </ul>
+
+                            <p class="h5"><strong>Interoperability Quick-Check</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Annotation</th>
+                                            <th>Use Case</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>@Throws</code></td>
+                                            <td>Exposes checked exceptions to Java.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>@JvmStatic</code></td>
+                                            <td>Makes methods static in Java.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>@JvmOverloads</code></td>
+                                            <td>Creates method overloads for default arguments.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a44">
+                            44. What is KMM (Kotlin Multiplatform Mobile)?
+                        </button>
+                    </h2>
+                    <div id="a44" class="accordion-collapse collapse" data-bs-parent="#KotlinFAQ">
+                        <div class="accordion-body">
+                            <p class="h5"><strong>Kotlin Multiplatform Mobile (KMM)</strong></p>
+
+                            <p>
+                                Kotlin Multiplatform Mobile (KMM)—now part of the unified <strong>Kotlin Multiplatform
+                                    (KMP)</strong>—is an SDK designed to simplify the development of cross-platform
+                                mobile applications. It allows developers to share <strong>business logic</strong> (data
+                                layers, networking, validation, calculations) between Android and iOS while keeping the
+                                <strong>UI native</strong>.
+                            </p>
+
+                            <p>
+                                Unlike other frameworks (like Flutter or React Native), KMM does not try to unify the
+                                UI. Instead, it focuses on sharing the "brain" of the app.
+                            </p>
+
+
+
+                            <p class="h5"><strong>Key Concepts: Shared vs. Native</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Component</th>
+                                            <th scope="col">Shared (Kotlin)</th>
+                                            <th scope="col">Native (Platform Specific)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Business Logic</th>
+                                            <td>✅ (Networking, Database, Models)</td>
+                                            <td>❌</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Data Processing</th>
+                                            <td>✅ (Parsing, Encryption, Logic)</td>
+                                            <td>❌</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">User Interface</th>
+                                            <td>❌</td>
+                                            <td>✅ (Jetpack Compose / SwiftUI)</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Hardware Access</th>
+                                            <td>❌ (Interface only)</td>
+                                            <td>✅ (Bluetooth, Camera, Sensors)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>The "Expect/Actual" Mechanism</strong></p>
+                            <p>
+                                When the shared module needs to access platform-specific APIs, it uses the
+                                <code>expect</code> and <code>actual</code> keywords.
+                            </p>
+                            <ul>
+                                <li><strong>expect:</strong> Declared in the shared module (the "interface").</li>
+                                <li><strong>actual:</strong> Implemented in the platform-specific modules (Android and
+                                    iOS).</li>
+                            </ul>
+
+
+
+                            <p class="h5"><strong>Example: Getting Platform Name</strong></p>
+                            <script
+                                src="https://gist.github.com/radhapawarofficial/342fa58557190bbb325eb7dcb803ebd8.js"></script>
+                            <p class="h5"><strong>KMM vs. Traditional Cross-Platform</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Feature</th>
+                                            <th>KMM (KMP)</th>
+                                            <th>Flutter / React Native</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>UI Type</strong></td>
+                                            <td>Fully Native (SwiftUI/Compose)</td>
+                                            <td>Rendered by Framework</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Performance</strong></td>
+                                            <td>Native Performance</td>
+                                            <td>Near-native to Native-like</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Risk</strong></td>
+                                            <td>Low (easy to integrate into existing apps)</td>
+                                            <td>High (requires "all-in" commitment)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Integration</strong></td>
+                                            <td>Can be just one module</td>
+                                            <td>Usually controls the whole project</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>Why use KMM?</strong></p>
+                            <ol>
+                                <li><strong>Single Source of Truth:</strong> Fix a bug in the shared logic once, and
+                                    it's fixed for both platforms.</li>
+                                <li><strong>Native Experience:</strong> Users get the exact look and feel they expect
+                                    from their OS.</li>
+                                <li><strong>Efficiency:</strong> Developers spend less time re-writing the same network
+                                    calls and data models for two different languages.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a45">
+                            45. What is the purpose of the kotlin-stdlib library?
+                        </button>
+                    </h2>
+                    <div id="a45" class="accordion-collapse collapse" data-bs-parent="#KotlinFAQ">
+                        <div class="accordion-body">
+                            <p class="h5"><strong>The kotlin-stdlib Library</strong></p>
+
+                            <p>
+                                The <strong>kotlin-stdlib</strong> (Kotlin Standard Library) is the essential foundation
+                                of any Kotlin project. It provides the core set of functions, types, and tools that
+                                extend the Java Class Library, making Kotlin expressive, concise, and safe.
+                            </p>
+                            <p>
+                                Without this library, you wouldn't have access to fundamental Kotlin features like
+                                Lambdas, Null Safety checks, or Collection extensions.
+                            </p>
+
+
+
+                            <p class="h5"><strong>Core Components and Purpose</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">What it provides</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Higher-Order Functions</th>
+                                            <td>Idiomatic tools like <code>let</code>, <code>run</code>,
+                                                <code>apply</code>, <code>also</code>, and <code>with</code>.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Extension Functions</th>
+                                            <td>Hundreds of utility methods added to existing Java classes (e.g.,
+                                                <code>String.isNullOrEmpty()</code>).
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Collections API</th>
+                                            <td>Rich, functional operations for lists, sets, and maps (e.g.,
+                                                <code>filter</code>, <code>map</code>, <code>flatMap</code>).
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Ranges & Progressions</th>
+                                            <td>Tools for iterations like <code>1..10</code> or <code>step</code>.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Kotlin Types</th>
+                                            <td>Native types like <code>Int</code>, <code>String</code>,
+                                                <code>Any</code>, <code>Nothing</code>, and <code>Unit</code>.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>Key Roles of the Standard Library</strong></p>
+                            <ol>
+                                <li>
+                                    <strong>Bridges the Gap with Java:</strong> While Kotlin runs on the JVM, it needs
+                                    the stdlib to map its unique features into Java-compatible bytecode. For example,
+                                    Kotlin's Read-only vs. Mutable collections are enforced at compile-time by the
+                                    stdlib interfaces.
+                                </li>
+                                <li>
+                                    <strong>Enables Expressive Syntax:</strong> The library provides the logic for
+                                    common "sugar" syntax like <code>listOf()</code> and functional transformations.
+
+                                    <script
+                                        src="https://gist.github.com/radhapawarofficial/2c0b735573e156e5cb06b00eea7e3f06.js"></script>
+                                </li>
+                                <li>
+                                    <strong>Multiplatform Consistency:</strong> The stdlib ensures that core functions
+                                    work identically whether you are compiling for Android, iOS (Native), or JavaScript.
+                                </li>
+                            </ol>
+
+                            <p class="h5"><strong>Library Variants</strong></p>
+                            <ul>
+                                <li><strong>kotlin-stdlib:</strong> The standard version for the JVM (now merges
+                                    previous jdk7/jdk8 variants).</li>
+                                <li><strong>kotlin-stdlib-js:</strong> For Kotlin/JS projects.</li>
+                                <li><strong>kotlin-stdlib-common:</strong> The base used in Multiplatform projects to
+                                    share code between platforms.</li>
+                                <li><strong>kotlin-stdlib-wasm:</strong> For WebAssembly targets.</li>
+                            </ul>
+
+                            <p class="h5"><strong>Important Note on Size</strong></p>
+                            <p>
+                                The Kotlin Standard Library is remarkably small (roughly 1.5MB to 2MB). In modern
+                                development, particularly Android, tools like <strong>R8 or ProGuard</strong> strip away
+                                any parts of the library you aren't using, making the final impact on your app size
+                                negligible.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortySix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a46">
+                            46. How do you perform "String Interpolation" in Kotlin?
+                        </button>
+                    </h2>
+                    <div id="a46" class="accordion-collapse collapse" data-bs-parent="#KotlinFAQ">
+                        <div class="accordion-body">
+                            <p class="h5"><strong>String Interpolation in Kotlin</strong></p>
+
+                            <p>
+                                <strong>String Interpolation</strong> (also known as String Templates) is a feature that
+                                allows you to embed variables or expressions directly into a string. This eliminates the
+                                need for messy string concatenation (using <code>+</code>) and makes the code much more
+                                readable. In Kotlin, you achieve this using the <strong>$</strong> symbol.
+                            </p>
+
+
+
+                            <p class="h5"><strong>Types of Interpolation</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Syntax</th>
+                                            <th scope="col">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Simple Variable</th>
+                                            <td><code>$variableName</code></td>
+                                            <td>Directly inserts the value of a variable.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Complex Expression</th>
+                                            <td><code>${expression}</code></td>
+                                            <td>Evaluates a block of code (logic, function call, or math) and inserts
+                                                the result.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Escaped Characters</th>
+                                            <td><code>\$</code></td>
+                                            <td>Used when you want to display a literal dollar sign.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>Code Examples</strong></p>
+                            <p><strong>1. Basic Interpolation</strong></p>
+                            <script
+                                src="https://gist.github.com/radhapawarofficial/94bd84b48683440e36ff3773e8782de2.js"></script>
+
+                            <p><strong>2. Expressions within Strings</strong></p>
+                            <p>You can perform logic or call methods inside <code>${}</code>:</p>
+
+                            <script
+                                src="https://gist.github.com/radhapawarofficial/24ca839483e9b6c71ed17ab742bee4fb.js"></script>
+
+                            <p><strong>3. Raw Strings (Multi-line)</strong></p>
+                            <p>Interpolation works perfectly inside raw strings (triple quotes). This is excellent for
+                                JSON or SQL queries:</p>
+
+                            <script
+                                src="https://gist.github.com/radhapawarofficial/24ba1959947a5f1e0ebc1ac9038cc088.js"></script>
+
+                            <p class="h5"><strong>Best Practices vs. Java</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Feature</th>
+                                            <th>Java (Standard)</th>
+                                            <th>Kotlin</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Readability</strong></td>
+                                            <td>Low (heavy use of <code>+</code> or <code>String.format</code>)</td>
+                                            <td>High (natural sentence structure)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Performance</strong></td>
+                                            <td><code>+</code> can create multiple StringBuilder objects</td>
+                                            <td>Compiled efficiently into StringBuilder calls</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Null Safety</strong></td>
+                                            <td>Risk of "null" string appearing</td>
+                                            <td>Handles nulls gracefully (calls <code>.toString()</code>)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortySeven">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a47">
+                            47. What is the "Smart Cast" feature in Kotlin?
+                        </button>
+                    </h2>
+                    <div id="a47" class="accordion-collapse collapse" data-bs-parent="#KotlinFAQ">
+                        <div class="accordion-body">
+                            <p class="h5"><strong>Smart Casts in Kotlin</strong></p>
+
+                            <p>
+                                <strong>Smart Casting</strong> is a compiler feature that automatically casts a variable
+                                to a specific type after a type check has been performed. In Java, you typically have to
+                                check the type and then explicitly cast it. Kotlin eliminates this redundant step,
+                                making code safer and cleaner.
+                            </p>
+
+                            <p class="h5"><strong>How It Works</strong></p>
+                            <p>
+                                When you use the <code>is</code> (type check) operator, the compiler tracks this
+                                information. Within the scope where the check is true, you can treat the variable as the
+                                target type without any additional syntax.
+                            </p>
+
+
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Java (Standard)</th>
+                                            <th scope="col">Kotlin (Smart Cast)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Check & Use</th>
+                                            <td>Requires explicit cast: <code>((String) obj).length()</code></td>
+                                            <td>Automatic: <code>obj.length</code></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Safety</th>
+                                            <td>Risk of ClassCastException if logic is flawed</td>
+                                            <td>Guaranteed safe by the compiler</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Syntax</th>
+                                            <td>Verbose</td>
+                                            <td>Concise and "Natural"</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>Common Scenarios</strong></p>
+                            <ol>
+                                <li>
+                                    <strong>Basic Type Checking (is):</strong> Once the type is checked inside an
+                                    <code>if</code> block, the variable is automatically cast.
+
+                                    <script
+                                        src="https://gist.github.com/radhapawarofficial/900736255335e15a27f16ceba5d49e89.js"></script>
+                                </li>
+                                <li>
+                                    <strong>Logical Operations:</strong> Smart casts work with operators like
+                                    <code>&&</code> and <code>||</code> because of short-circuit evaluation.
+
+                                    <script
+                                        src="https://gist.github.com/radhapawarofficial/817392a78ab0279dfd14abd172a5622b.js"></script>
+                                </li>
+                                <li>
+                                    <strong>The <code>when</code> Expression:</strong> This is the most common use case
+                                    for smart casting, allowing different logic for different types safely.
+
+                                    <script
+                                        src="https://gist.github.com/radhapawarofficial/63e033a49916b8030ce3bc6675ac5708.js"></script>
+                                </li>
+                                <li>
+                                    <strong>Nullability (The null Check):</strong> A null check is technically a smart
+                                    cast from a nullable type (e.g., <code>String?</code>) to a non-nullable type
+                                    (<code>String</code>).
+
+                                    <script
+                                        src="https://gist.github.com/radhapawarofficial/66d793bcb9ca9d9ac673310545997116.js"></script>
+                                </li>
+                            </ol>
+
+                            <p class="h5"><strong>Requirements for Smart Casting</strong></p>
+                            <p>The compiler must be 100% certain that the variable cannot change between the check and
+                                the usage. Therefore, smart casting only works for:</p>
+
+                            <ul>
+                                <li><strong>val local variables:</strong> Always.</li>
+                                <li><strong>val properties:</strong> Only if they are private or internal and not
+                                    <code>open</code>.
+                                </li>
+                                <li><strong>var local variables:</strong> Only if they are not modified between the
+                                    check and the usage.</li>
+                            </ul>
+
+                            <p>
+                                <strong>Note:</strong> It does <strong>not</strong> work for <code>var</code>
+                                properties, because the compiler cannot guarantee that another thread hasn't changed the
+                                value in the millisecond between the check and the access.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyEight">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a48">
+                            48. What is the Unit type and how does it differ from Java's void?
+                        </button>
+                    </h2>
+                    <div id="a48" class="accordion-collapse collapse" data-bs-parent="#KotlinFAQ">
+                        <div class="accordion-body">
+                            <p class="h5"><strong>The Unit Type in Kotlin</strong></p>
+
+                            <p>
+                                In Kotlin, <strong>Unit</strong> is the type used for functions that do not return any
+                                meaningful value. While it serves a similar purpose to <code>void</code> in Java, it is
+                                fundamentally different in how it is treated by the type system.
+                            </p>
+
+
+
+                            <p class="h5"><strong>Key Differences: Unit vs. void</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Java void</th>
+                                            <th scope="col">Kotlin Unit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Nature</th>
+                                            <td>A keyword (primitive-like).</td>
+                                            <td>A real object (singleton).</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Is it a Type?</th>
+                                            <td>No, it's the absence of a type.</td>
+                                            <td>Yes, it is a subtype of <code>Any</code>.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Return Value</th>
+                                            <td>Nothing is returned.</td>
+                                            <td>The singleton instance <code>Unit</code> is returned.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Generic Support</th>
+                                            <td>Cannot be used as a type argument.</td>
+                                            <td>Can be used in Generics (e.g., <code>Function&lt;Unit&gt;</code>).</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>Why Unit is Better than void</strong></p>
+                            <ol>
+                                <li>
+                                    <strong>Full Interoperability with Generics:</strong> Because <code>Unit</code> is a
+                                    real object, it can be passed as a type parameter. In Java, to return "nothing" from
+                                    a generic <code>Callable&lt;T&gt;</code>, you must use the <code>Void</code> class
+                                    and explicitly <code>return null;</code>. In Kotlin, you just use <code>Unit</code>.
+                                
+                                    <script src="https://gist.github.com/radhapawarofficial/a65fbb6d1ef1646a09b50a3d3108a3c7.js"></script>
+                                </li>
+                                <li>
+                                    <strong>Functional Programming:</strong> Every function in Kotlin must return
+                                    something so it can be used in higher-order functions. <code>Unit</code> provides a
+                                    consistent return type for "side-effect" functions.
+
+                                    <script src="https://gist.github.com/radhapawarofficial/c6a1a85df3817be34a01c4343fa41d53.js"></script>
+                                </li>
+                            </ol>
+
+                            <p class="h5"><strong>Unit vs. Nothing</strong></p>
+                            <p>It is common to confuse <code>Unit</code> with <code>Nothing</code>. Here is the
+                                distinction:</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Meaning</th>
+                                            <th>Example</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Unit</strong></td>
+                                            <td>I finish successfully but return no data.</td>
+                                            <td><code>println("Hello")</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Nothing</strong></td>
+                                            <td>I never finish or always throw an error.</td>
+                                            <td><code>throw Exception()</code></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>Summary of Behavior</strong></p>
+                            <ul>
+                                <li>You don't have to explicitly declare <code>: Unit</code> on functions; it is the
+                                    default.</li>
+                                <li>You don't have to write <code>return Unit</code>; the compiler adds it
+                                    automatically.</li>
+                                <li>Under the hood, Kotlin <code>Unit</code> is mapped to Java <code>void</code> for
+                                    performance unless used as a generic type.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyNine">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a49">
+                            49. What is the Nothing type and when is it used?
+                        </button>
+                    </h2>
+                    <div id="a49" class="accordion-collapse collapse" data-bs-parent="#KotlinFAQ">
+                        <div class="accordion-body">
+                            <p class="h5"><strong>The Nothing Type in Kotlin</strong></p>
+
+                            <p>
+                                In Kotlin, <strong>Nothing</strong> is a special type that has no instances. It is used
+                                to represent a value that never exists or a function that <strong>never completes
+                                    successfully</strong>. While <code>Unit</code> means "I finished but returned
+                                nothing," <code>Nothing</code> means "I will never return."
+                            </p>
+
+
+
+                            <p class="h5"><strong>Key Characteristics of Nothing</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Subtyping</th>
+                                            <td><code>Nothing</code> is the <strong>bottom type</strong>: it is a
+                                                subtype of every other Kotlin type (including String, Int, and nullable
+                                                types).</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Instantiation</th>
+                                            <td>You cannot create an instance of <code>Nothing</code>.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Compiler Logic</th>
+                                            <td>The compiler knows that any code following a <code>Nothing</code> return
+                                                is <strong>unreachable</strong>.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>Primary Use Cases</strong></p>
+                            <ol>
+                                <li>
+                                    <strong>Functions that Always Throw an Exception:</strong> If a function is designed
+                                    solely to throw an error (like a fail-fast utility), its return type should be
+                                    <code>Nothing</code>. This allows the compiler to know that variables assigned using
+                                    this function (via elvis operator) will be non-null.
+
+                                    <script src="https://gist.github.com/radhapawarofficial/3fde2cba5d4bb2c13fb1dce574acac3b.js"></script>
+                                </li>
+                                <li>
+                                    <strong>Functions with Infinite Loops:</strong> Functions that represent a
+                                    background worker or a process that runs forever return <code>Nothing</code>.
+
+                                    <script src="https://gist.github.com/radhapawarofficial/8686029224ff2ce4b68cdca65bf3d208.js"></script>
+                                </li>
+                                <li>
+                                    <strong>Representing "Empty" in Generics:</strong> Used to define empty objects
+                                    type-safely. For example, <code>emptyList()</code> returns
+                                    <code>List&lt;Nothing&gt;</code>, which can be treated as a list of any type.                                
+                                </li>
+                            </ol>
+
+                            <p class="h5"><strong>Nothing vs. Unit</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Aspect</th>
+                                            <th>Unit</th>
+                                            <th>Nothing</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Return Meaning</strong></td>
+                                            <td>"I'm done."</td>
+                                            <td>"I'll never finish normally."</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Instance</strong></td>
+                                            <td>Yes (the <code>Unit</code> object).</td>
+                                            <td>No (impossible to create).</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Code Flow</strong></td>
+                                            <td>Code after the call <strong>is</strong> executed.</td>
+                                            <td>Code after the call <strong>is unreachable</strong>.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+                            <p class="h5"><strong>The Nullable Nothing?</strong></p>
+                            <p>
+                                Because <code>Nothing?</code> is a nullable type, it has exactly one possible value:
+                                <code>null</code>. This is the type the Kotlin compiler assigns to the value
+                                <code>null</code> itself when it doesn't have any other type information.
+
+                                <script src="https://gist.github.com/radhapawarofficial/7e77d18cd804103858e92de5a5ac3f1b.js"></script>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFifty">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a50">
+                            50. How does the Kotlin compiler (kotlinc) work under the hood?
+                        </button>
+                    </h2>
+                    <div id="a50" class="accordion-collapse collapse" data-bs-parent="#KotlinFAQ">
+                        <div class="accordion-body">
+                            <p class="h5"><strong>How the Kotlin Compiler (kotlinc) Works</strong></p>
+
+                            <p>
+                                The Kotlin compiler, <strong>kotlinc</strong>, is responsible for transforming your
+                                human-readable Kotlin code into a format that a machine or virtual machine can execute.
+                                Most commonly, this is JVM Bytecode, but the compiler is modular and can target
+                                different environments.
+                            </p>
+
+
+
+                            <p class="h5"><strong>The Compilation Pipeline</strong></p>
+                            <p>
+                                This "frontend to backend" architecture is what allows Kotlin to be so flexible across
+                                platforms.
+                            </p>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Phase</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1. Analysis</td>
+                                            <td><strong>Parsing</strong></td>
+                                            <td>Converts source code into a <strong>Program Structure Interface
+                                                    (PSI)</strong> tree.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2. Resolution</td>
+                                            <td><strong>Binding</strong></td>
+                                            <td>Resolves symbols (variables, functions) and checks types to ensure
+                                                validity.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3. IR Generation</td>
+                                            <td><strong>Intermediate Representation</strong></td>
+                                            <td>The PSI is converted into <strong>Kotlin IR</strong>, a
+                                                platform-independent universal tree format.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4. Lowering</td>
+                                            <td><strong>Optimization</strong></td>
+                                            <td>Simplifies complex features (like <code>when</code> or Coroutines) into
+                                                simpler structures.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5. Backend</td>
+                                            <td><strong>Generation</strong></td>
+                                            <td>The IR is converted into the final target: <code>.class</code>,
+                                                <code>.js</code>, or machine code.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>The Role of Kotlin IR (Intermediate Representation)</strong></p>
+                            <p>
+                                Introduced in Kotlin 1.5, the <strong>IR</strong> is the "brain" of the modern compiler.
+                                Before IR, the compiler had separate logic for JVM, JS, and Native. Now:
+                            </p>
+
+                            <ol>
+                                <li>
+                                    The <strong>Frontend</strong> analyzes the code once.
+                                </li>
+                                <li>
+                                    It converts the code into a unified <strong>IR tree</strong>.
+                                </li>
+                                <li>
+                                    The <strong>Backend</strong> specific to your platform 
+                                    (JVM, iOS, etc.) reads that IR and generates the appropriate output.
+                                </li>
+                            </ol>
+                            <p>
+                                This makes it much easier for the Kotlin team to add new language features, as they only need to implement them once in the IR.
+                            </p>
+
+                            <p class="h5"><strong>Under the Hood: Key Transformations</strong></p>
+                            <p>
+                                The compiler does a lot of "heavy lifting" to make Kotlin's high-level features work on the JVM:
+                            </p>
+                            <ul>
+                                <li><strong>Properties:</strong> Converts <code>val x: Int</code> into a private field and a
+                                    getter method in the bytecode.</li>
+                                <li><strong>Data Classes:</strong> Automatically generates <code>equals()</code>,
+                                    <code>hashCode()</code>, and <code>toString()</code>.
+                                </li>
+                                <li><strong>Coroutines:</strong> Transforms <code>suspend</code> functions into a
+                                    <strong>State Machine</strong> using Continuation-Passing Style (CPS).
+                                </li>
+                                <li><strong>Inline Functions:</strong> The compiler copies the function's bytecode
+                                    directly into the calling site to eliminate call overhead.</li>
+                            </ul>
+
+
+
+                            <p class="h5"><strong>Target Backends</strong></p>
+                            <p>Kotlin's Backend is swappable, allowing it to target various environments:</p>
+                            <ul>
+                                <li><strong>Kotlin/JVM:</strong> Generates <code>.class</code> files for the JVM.</li>
+                                <li><strong>Kotlin/JS:</strong> Transpiles Kotlin code into JavaScript.</li>
+                                <li><strong>Kotlin/Native:</strong> Uses <strong>LLVM</strong> to compile directly into
+                                    executable binaries (Windows, <code>.kexe</code> for iOS, etc.).</li>
+                            </ul>
+
+                            <p class="h5"><strong>Summary Table: The Compilation Result</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Source</th>
+                                            <th>Compiler Target</th>
+                                            <th>Final Output</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>Main.kt</code></td>
+                                            <td>JVM</td>
+                                            <td><code>MainKt.class</code> (Bytecode)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Main.kt</code></td>
+                                            <td>JavaScript</td>
+                                            <td><code>main.js</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>Main.kt</code></td>
+                                            <td>Native (iOS)</td>
+                                            <td><code>Main.framework</code> (Binary)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
