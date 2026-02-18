@@ -3065,33 +3065,1400 @@
 
 
                 <!-- 31 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThirtyOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a31">
+                            31. How does the Android Sandbox isolate applications from one another?
+                        </button>
+                    </h2>
+                    <div id="a31" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>Android's security model is built on the foundation of <strong>Multi-User Linux
+                                    isolation</strong>. Even
+                                though you are the only person using your phone, the system treats every app as a
+                                separate "user."
+                            </p>
+
+                            <ol>
+                                <li><strong>Unique User IDs (UID)</strong>
+                                    <p>At the core of the sandbox is the <strong>UID</strong>. When you install an app,
+                                        Android assigns
+                                        it a unique Linux User ID.</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Isolation:</strong> App A (UID 1001) cannot "talk" to or see the
+                                            files of App B (UID 1002).
+                                        </li>
+                                        <li>
+                                            <strong>Kernel Enforcement:</strong> This isn't just a software rule; it is
+                                            enforced at the Linux Kernel level. If App A tries to read App B's folder,
+                                            the Kernel returns a "Permission Denied" error.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Process Isolation</strong>
+                                    <p>Every app runs in its own instance of the <strong>Dalvik or ART (Android Runtime)
+                                            Virtual
+                                            Machine</strong>.
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <strong>Memory Protection:</strong> Because each app is its own process, it
+                                            has its own allocated memory space. App A cannot reach into the RAM of App B
+                                            to steal passwords or session tokens.
+                                        </li>
+                                        <li>
+                                            <strong>Stability:</strong> If App A crashes, it doesn't affect the system
+                                            or other apps because its process is completely self-contained.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>File System Permissions</strong>
+                                    <p>Android sets strict permissions on the internal storage:</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Private Data:</strong> Each app has a private data directory
+                                            (located in <code>/data/data/package_name</code>) that is owned by its
+                                            specific UID.
+                                        </li>
+                                        <li>
+                                            <strong>No Global Access:</strong> No app has permission to browse the
+                                            entire file
+                                            system unless the user explicitly grants a broad permission (like "All Files
+                                            Access"), and even then, sensitive system files remain off-limits.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Communication through Gates</strong>
+                                    <p>Since apps are locked in these "sandboxes," they cannot interact directly. They
+                                        must use
+                                        strictly defined "gates" managed by the system:</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Intents:</strong> To ask another app to do something (e.g., "Open
+                                            this URL in a browser").
+                                        </li>
+                                        <li>
+                                            <strong>Content Providers:</strong> To share specific pieces of data (e.g.,
+                                            "Give me the phone number for John Doe").
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ol>
+
+                            <p class="h5"><strong>Summary Table</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Security Layer</th>
+                                            <th scope="col">Mechanism</th>
+                                            <th scope="col">Purpose</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Kernel Level</th>
+                                            <td>Unique UID per app</td>
+                                            <td>Prevents unauthorized file access.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Runtime Level</th>
+                                            <td>Separate ART/VM Instance</td>
+                                            <td>Isolates memory and execution.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">System Level</th>
+                                            <td>Permissions &amp; Intents</td>
+                                            <td>Controls how apps talk to each other.</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Mandatory Level</th>
+                                            <td>SELinux</td>
+                                            <td>Prevents even "root" processes from doing harm.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 32 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThirtyTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a32">
+                            32. What is the difference between Install-time permissions and Runtime permissions?
+                        </button>
+                    </h2>
+                    <div id="a32" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>In Android, permissions are categorized based on the level of risk they pose to user
+                                privacy. The system handles them differently depending on when the user is asked to
+                                grant access.
+                            </p>
+
+                            <ol>
+                                <li>
+                                    <strong>Install-time Permissions</strong>
+                                    <p>These are permissions that carry a low risk to the user's privacy or the
+                                        operation of other apps.
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <strong>Granting Mechanism:</strong> They are automatically granted by the
+                                            system when the app is installed. The user "consents" to these permissions
+                                            by
+                                            choosing to install the app from the Play Store.
+                                        </li>
+                                        <li>
+                                            <strong>Categories:</strong>
+                                            <ul>
+                                                <li><strong>Normal Permissions:</strong> Access that has very little
+                                                    risk (e.g.,
+                                                    <code>INTERNET</code>, <code>SET_ALARM</code>,
+                                                    <code>VIBRATE</code>).
+                                                </li>
+                                                <li><strong>Signature Permissions:</strong> Permissions granted only if
+                                                    the app
+                                                    requesting them is signed with the same certificate as the app that
+                                                    defined them (usually system-level apps).</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <strong>User Control:</strong> The user cannot revoke these individual
+                                            permissions
+                                            once the app is installed; they must uninstall the app to remove access.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Runtime Permissions</strong>
+                                    <p>Also known as "Dangerous Permissions," these give the app access to private user
+                                        data or
+                                        sensitive device features.</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Granting Mechanism:</strong> The system does not grant these at
+                                            installation. Instead, the app must check if it has the permission and
+                                            explicitly ask the user while the app is running.
+                                        </li>
+                                        <li>
+                                            <strong>Categories:</strong> Features that could impact the user's privacy
+                                            or data
+                                            (e.g., <code>CAMERA</code>, <code>LOCATION</code>, <code>CONTACTS</code>,
+                                            <code>MICROPHONE</code>).
+                                        </li>
+                                        <li><strong>User Control:</strong> The user can grant or deny these at any time.
+                                            They can also go into <strong>Settings &gt; Apps</strong> to revoke a
+                                            previously
+                                            granted permission.
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ol>
+
+                            <p class="h5"><strong>Comparison Table</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Install-time (Normal)</th>
+                                            <th scope="col">Runtime (Dangerous)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">When Granted</th>
+                                            <td>During installation</td>
+                                            <td>While using the app</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">User Prompt</th>
+                                            <td>None (Automatic)</td>
+                                            <td>Visible Dialog Box</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Risk Level</th>
+                                            <td>Low</td>
+                                            <td>High</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Revocability</th>
+                                            <td>Cannot be revoked individually</td>
+                                            <td>Can be revoked in Settings</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Example</th>
+                                            <td><code>ACCESS_NETWORK_STATE</code></td>
+                                            <td><code>READ_EXTERNAL_STORAGE</code></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>Why the difference?</strong></p>
+                            <p>
+                                Before Android 6.0 (Marshmallow), all permissions were granted at install time. This was
+                                a "take it or leave it" model. If a flashlight app asked for your contacts, you either
+                                agreed to it or didn't install the app.
+                            </p>
+                            <p>
+                                The <strong>Runtime</strong> model ensures transparency—the user understands why an app
+                                needs a
+                                permission
+                                because it is requested in context (e.g., the app asks for the camera only when you
+                                click the "Take Photo" button).
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 33 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThirtyThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a33">
+                            33. What is Scoped Storage and how does it protect user privacy?
+                        </button>
+                    </h2>
+                    <div id="a33" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                <strong> Scoped Storage</strong> is a security feature introduced in Android 10 (and
+                                refined in Android
+                                11+) that changes how apps access files on a device's external storage. Historically, if
+                                an app had the "Storage" permission, it could browse every single file on your phone
+                                (photos, downloads, documents from other apps). Scoped Storage ends this "all-access"
+                                model.
+                            </p>
+
+                            <ol>
+                                <li>
+                                    <strong>How Scoped Storage Works</strong>
+                                    <p>Instead of a wide-open file system, Scoped Storage organizes files into specific
+                                        "buckets" with different rules:
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <strong>App-Specific Directory:</strong> Each app has its own dedicated
+                                            folder for
+                                            files. The app can read and write here without asking for any permissions.
+                                            When you
+                                            uninstall the app, these files are deleted.
+                                        </li>
+                                        <li>
+                                            <strong>Media Collections:</strong> Apps can contribute to shared folders
+                                            like
+                                            <strong>Photos, Videos, or Audio</strong>. An app can see the photos it
+                                            created without
+                                            permission,
+                                            but it must ask for a specific prompt to see photos created by other apps.
+                                        </li>
+                                        <li>
+                                            <strong>Downloads Folder:</strong> Apps can save files here, but they cannot
+                                            see
+                                            files saved by other apps unless the user manually selects them using the
+                                            <strong>System File Picker</strong>.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>How it Protects Privacy</strong>
+                                    <p>Scoped Storage addresses several long-standing security concerns:</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Prevents "Data Snooping":</strong> A simple wallpaper app can no
+                                            longer scan
+                                            your "Documents" folder to steal your tax returns or private PDFs.
+                                        </li>
+                                        <li>
+                                            <strong>Reduces "File Clutter":</strong> In the past, apps would create
+                                            random
+                                            folders (e.g., <code>.trash, temp_data</code> ) all over your storage. Now,
+                                            most app data
+                                            is
+                                            confined to the app's own sandbox.
+                                        </li>
+                                        <li>
+                                            <strong>Better User Control:</strong> If an app wants to modify or delete a
+                                            photo it
+                                            didn't create, the system shows a specific popup asking, "Allow [App] to
+                                            modify this
+                                            photo?" rather than giving the app permanent access to your whole gallery.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Comparison: Old vs. New Storage Model</strong>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Feature</th>
+                                                    <th scope="col">Legacy Storage (Pre-Android 10)</th>
+                                                    <th scope="col">Scoped Storage (Modern)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Permission Scope</th>
+                                                    <td>Full access to <code>/sdcard/</code></td>
+                                                    <td>Limited to app-specific folders</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Visibility</th>
+                                                    <td>Apps can see all files</td>
+                                                    <td>Apps see only their own files</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Uninstall Behavior</th>
+                                                    <td>Leftover folders remained</td>
+                                                    <td>App-specific files are deleted</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">User Experience</th>
+                                                    <td>One-time "Allow Storage"</td>
+                                                    <td>Granular, context-aware prompts</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>The Role of the Storage Access Framework (SAF)</strong>
+                                    <p>
+                                        For apps that genuinely need to access broader folders (like a File Manager),
+                                        Android
+                                        uses the <strong>Storage Access Framework</strong>. Instead of the app browsing
+                                        your files, the
+                                        system
+                                        shows a file picker. You select the file, and the system gives the app a
+                                        temporary
+                                        "token" to access only that specific file or folder.
+                                    </p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 34 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThirtyFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a34">
+                            34. How does the Keystore system protect cryptographic keys?
+                        </button>
+                    </h2>
+                    <div id="a34" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                The <strong>Android Keystore system</strong> is a secure container that allows
+                                applications to store
+                                cryptographic keys in a way that makes them difficult to extract from the device.
+                                Instead of the app handling the raw key material, the Keystore performs operations (like
+                                signing or encrypting) on the app's behalf.
+                            </p>
+
+                            <ol>
+                                <li>
+                                    <strong>Key Isolation</strong>
+                                    <p>
+                                        The most critical feature of the Keystore is that it prevents the key material
+                                        from
+                                        entering the application's memory space.
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <strong>The "Black Box" Approach:</strong> When an app generates a key in
+                                            the
+                                            Keystore, it receives a <strong>key alias</strong> (a reference). When it
+                                            needs to encrypt
+                                            data, it
+                                            sends the data to the Keystore. The Keystore performs the math and sends
+                                            back the
+                                            result.
+                                        </li>
+                                        <li>
+                                            <strong>Protection from Malware:</strong> Even if an app is compromised by
+                                            malware
+                                            or a "memory dump" attack, the attacker cannot steal the actual private key
+                                            because
+                                            it was never present in the app's RAM.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Hardware-Backed Security</strong>
+                                    <p>On most modern devices, the Keystore isn't just a software folder; it is backed
+                                        by
+                                        dedicated hardware:</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Trusted Execution Environment (TEE):</strong> A secure area of the
+                                            main
+                                            processor that runs an isolated OS (like TrustZone). It handles keys
+                                            separately from
+                                            the main Android OS.
+                                        </li>
+                                        <li>
+                                            <strong>StrongBox:</strong> Found in premium devices (like Pixel or high-end
+                                            Galaxy
+                                            phones), this is a completely separate security chip (Secure Element) with
+                                            its own
+                                            CPU and storage, making it even more resistant to physical tampering.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Key Use Constraints</strong>
+                                    <p>
+                                        The Keystore allows developers to set strict "rules" for how and when a key can
+                                        be used:
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <strong>User Authentication:</strong> You can require that a key only be
+                                            used if the
+                                            user has recently authenticated with a <strong>Fingerprint, Face, or
+                                                PIN</strong>.
+                                        </li>
+                                        <li>
+                                            <strong>Cryptographic Limits:</strong> You can restrict a key to only
+                                            perform
+                                            specific operations (e.g., "This key can only be used for Decryption, never
+                                            Encryption").
+                                        </li>
+                                        <li>
+                                            <strong>Time-Bound:</strong> Keys can be set to expire after a certain date
+                                            or
+                                            remain valid for only 30 seconds after a biometric scan.
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ol>
+
+                            <p class="h5"><strong>Summary Table</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col">Feature</th>
+                                            <th scope="col">Standard App Storage</th>
+                                            <th scope="col">Android Keystore</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Key Location</th>
+                                            <td>Inside App Data / Preferences</td>
+                                            <td>Isolated Hardware/System</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Extraction Risk</th>
+                                            <td>High (Root/Malware can copy it)</td>
+                                            <td>Extremely Low (Hardware-locked)</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Biometric Link</th>
+                                            <td>Manual logic (Less secure)</td>
+                                            <td>Hardware-enforced</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Key Visibility</th>
+                                            <td>App sees raw bytes</td>
+                                            <td>App sees only a "handle"</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <p class="h5"><strong>Why this matters</strong></p>
+                            <p>By using the Keystore, apps like Google Pay or banking applications can ensure that even
+                                if the phone's software is completely compromised, your digital signatures and
+                                encryption keys remain physically locked away in the device's secure hardware.</p>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 35 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThirtyFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a35">
+                            35. What is Google Play Protect and how does it scan for malware?
+                        </button>
+                    </h2>
+                    <div id="a35" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Google Play Protect</strong> is Android's built-in, always-on security system
+                                that acts as a
+                                unified antivirus and threat detection suite. Unlike traditional antivirus software that
+                                you download, Play Protect is part of Google Play Services and runs natively on almost
+                                all certified Android devices.
+                            </p>
+
+                            <ol>
+                                <li>
+                                    <strong>How it Scans for Malware</strong>
+                                    <p>Play Protect uses a multi-layered approach that combines on-device intelligence
+                                        with
+                                        Google's massive cloud-based data:</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Pre-Install Scanning:</strong> Every app submitted to the Google
+                                            Play Store
+                                            undergoes rigorous automated testing. Google's AI analyzes the app's code
+                                            for known
+                                            malware patterns and "Potentially Harmful Application" (PHA) behaviors
+                                            before it
+                                            ever reaches your screen.
+                                        </li>
+                                        <li>
+                                            <strong>On-Device Daily Scans:</strong> The service performs a lightweight
+                                            scan of
+                                            your installed apps every day. To save battery and data, it primarily checks
+                                            your
+                                            apps against a local database of known threats.
+                                        </li>
+                                        <li>
+                                            <strong>Real-Time Code-Level Scanning:</strong> If you try to install an
+                                            unknown app
+                                            (especially from outside the Play Store), Play Protect can perform a
+                                            <strong>real-time
+                                                code-level evaluation</strong>. It extracts "signals" from the app's
+                                            code and sends
+                                            them to
+                                            Google's servers to see if the app is a new, previously unseen piece of
+                                            malware
+                                            (Zero-day).
+                                        </li>
+                                        <li>
+                                            <strong>Heuristic &amp; Behavioral Analysis:</strong> It doesn't just look
+                                            at
+                                            signatures; it looks at behavior. If an app starts performing suspicious
+                                            activities—like secretly sending SMS messages to premium numbers or
+                                            intercepting
+                                            your notifications—Play Protect will flag it as a threat.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Scanning Sideloaded Apps</strong>
+                                    <p>One of the most common myths is that Play Protect only cares about the Play
+                                        Store. <strong>This is false</strong>.
+                                    </p>
+                                    <ul>
+                                        <li><strong>Universal Coverage:</strong> Play Protect scans every app on your
+                                            device,
+                                            regardless of where it came from (browser downloads, third-party stores, or
+                                            ADB).
+                                        </li>
+                                        <li><strong>The "Unknown App" Prompt:</strong> When you sideload an app that
+                                            Google
+                                            hasn't seen before, you may see a prompt asking to "<strong>Send app for a
+                                                security
+                                                check</strong>."
+                                            This uploads a portion of the app to Google's cloud for a deep analysis.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Key Actions When a Threat is Found</strong>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Action</th>
+                                                    <th scope="col">When it happens</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Warning Notification</th>
+                                                    <td>For "less severe" threats (like unwanted software that shows
+                                                        excessive
+                                                        ads).</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Disabling the App</th>
+                                                    <td>The app is frozen and unusable, but its data is kept in case you
+                                                        want to
+                                                        appeal the decision.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Automatic Removal</th>
+                                                    <td>For "high-severity" malware (like ransomware or spyware). Google
+                                                        will
+                                                        delete it immediately and notify you afterward.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Beyond Malware: Privacy &amp; Safety</strong>
+                                    <ul>
+                                        <li><strong>Privacy Alerts:</strong> It warns you if an app is violating
+                                            Google's
+                                            developer policies by accessing sensitive info (like your call logs) without
+                                            a clear
+                                            reason.</li>
+                                        <li><strong>Permission Auto-Reset:</strong> If you haven't used an app in
+                                            several
+                                            months, Play Protect will automatically revoke its permissions (like Camera
+                                            or
+                                            Location) to protect your privacy.</li>
+                                        <li><strong>Safe Browsing:</strong> It integrates with Google Chrome to warn you
+                                            if
+                                            you're about to visit a known phishing or malware-hosting website.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 36 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThirtySix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a36">
+                            36. What is the BiometricPrompt API and how does it handle fingerprint/face data?
+                        </button>
+                    </h2>
+                    <div id="a36" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>The <strong>BiometricPrompt API</strong> is the modern, unified way for Android apps to
+                                authenticate users via biometrics (fingerprint, face, or iris). Introduced in Android 9
+                                (Pie), it replaced the older <code>FingerprintManager</code> to provide a consistent
+                                security experience across all devices and biometric types.
+                            </p>
+
+                            <ol>
+                                <li>
+                                    <strong>Unified Interface</strong>
+                                    <p>
+                                        In the past, developers had to build their own custom dialogs for fingerprint
+                                        scans.
+                                        <code>BiometricPrompt</code> changed this by providing a <strong>System-Managed
+                                            Dialog</strong>:
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <strong>Consistency:</strong> The look and feel of the authentication prompt
+                                            are
+                                            controlled by the OS, not the app. This builds trust, as users recognize the
+                                            official system UI.
+                                        </li>
+                                        <li>
+                                            <strong>Modality Agnostic:</strong> The app doesn't need to know how the
+                                            user is
+                                            authenticating. It simply asks the system for "Strong" or "Weak"
+                                            authentication, and
+                                            the system decides whether to show the fingerprint scanner, face unlock, or
+                                            iris
+                                            scan based on hardware support.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>How it Handles Biometric Data (Privacy)</strong>
+                                    <p>
+                                        One of the most common misconceptions is that apps "see" your fingerprint or
+                                        face. This
+                                        is strictly false.
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <strong>No Data Access:</strong> The app never receives your biometric data
+                                            (the
+                                            image of your finger or the map of your face).
+                                        </li>
+                                        <li>
+                                            <strong>The Handshake:</strong> When you touch the sensor, the
+                                            <strong>Biometric
+                                                Hardware</strong> compares the input to an encrypted template stored in
+                                            a
+                                            <strong>Trusted Execution Environment (TEE)</strong> or <strong>Secure
+                                                Element</strong>.
+                                        </li>
+                                        <li><strong>The Result:</strong> The system only sends a simple "Success" or
+                                            "Failure"
+                                            signal back to the app. If successful, it may also provide a
+                                            cryptographic (signature) that the app can use to unlock a key
+                                            in the
+                                            Keystore.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p class="h5"><strong>Biometric Authenticator Strengths</strong></p>
+                                    <p>Android classifies biometrics into three levels of "Strength" based on their
+                                        <strong>SPOOF</strong> (Statistical Probability of False Match) and <strong>SAR
+                                        </strong>(Spoof Acceptance Rate):
+                                    </p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Class</th>
+                                                    <th scope="col">Strength</th>
+                                                    <th scope="col">Examples</th>
+                                                    <th scope="col">Capabilities</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Class 3</th>
+                                                    <td>Strong</td>
+                                                    <td>Secure Fingerprint, 3D Face Map</td>
+                                                    <td>Can unlock Keystore keys and authorize payments.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Class 2</th>
+                                                    <td>Weak</td>
+                                                    <td>2D Camera-based Face Unlock</td>
+                                                    <td>Can unlock the app but cannot authorize high-security keys.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Class 1</th>
+                                                    <td>Convenience</td>
+                                                    <td>Basic patterns</td>
+                                                    <td>Not used for app-level <code>BiometricPrompt</code> usually.
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Integration with the Keystore</strong>
+                                    <p>
+                                        For high-security apps (like banking), <code>BiometricPrompt</code> is often
+                                        used in
+                                        tandem with the <strong>Android Keystore</strong>:
+                                    </p>
+                                    <ol>
+                                        <li>The app generates a key that is "locked" behind biometric authentication
+                                            using
+                                            <code>setUserAuthenticationRequired(true)</code>.
+                                        </li>
+                                        <li>The user triggers the <code>BiometricPrompt</code>.</li>
+                                        <li>The system verifies the user in secure hardware and "unlocks" the key.</li>
+                                        <li>The app uses the unlocked key to sign a transaction or decrypt sensitive
+                                            data.</li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <strong>Fallback Mechanisms</strong>
+                                    <p>
+                                        If a user's biometric scan fails multiple times, or if they prefer not to use
+                                        it,
+                                        <code>BiometricPrompt</code> can allow a <strong>Device Credential</strong>
+                                        fallback.
+                                        This means the user can enter their device <strong>PIN, Pattern, or
+                                            Password</strong> to complete
+                                        the
+                                        authentication, ensuring they are never locked out of the app.
+                                    </p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 37 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThirtySeven">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a37">
+                            37. How does Verified Boot ensure the integrity of the OS during startup?
+                        </button>
+                    </h2>
+                    <div id="a37" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Verified Boot</strong> (specifically Android Verified Boot or
+                                <strong>AVB</strong> ) is a security feature that
+                                ensures all executed code comes from a trusted source (usually the OEM). It establishes
+                                a Chain of Trust that verifies every stage of the boot process before handing over
+                                control to the next one.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>The Chain of Trust</strong>
+                                    <p>
+                                        The process starts from a <strong>Hardware Root of Trust</strong>, which is a
+                                        cryptographic key etched into the device's hardware (SoC) that cannot be
+                                        modified.
+                                    </p>
+                                    <ol>
+                                        <li>
+                                            <strong>Step 1: Bootloader Verification:</strong> The hardware root of trust
+                                            verifies the
+                                            primary bootloader.
+                                        </li>
+                                        <li>
+                                            <strong>Step 2:Partition Verification:</strong> The bootloader then loads
+                                            the
+                                            <code>vbmeta</code> partition, which contains digital signatures for other
+                                            partitions (like <code>boot</code>, <code>system</code>, and
+                                            <code>vendor</code>). It verifies these signatures
+                                            using a
+                                            public key embedded in the device.
+                                        </li>
+                                        <li>
+                                            <strong>Step 3: Kernel Verification:</strong> Once the <code>boot</code>
+                                            partition (containing
+                                            the
+                                            kernel) is verified, the kernel takes over.
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <strong>Integrity Checking with dm-verity</strong>
+                                    <p>
+                                        For large partitions like <code>system</code> that are too big to load into RAM
+                                        all at
+                                        once, Android uses a kernel feature called <code>dm-verity</code>.
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <strong>The Hash Tree:</strong> The partition is divided into small 4 KB
+                                            blocks. A
+                                            "hash tree" (Merkle Tree) is created where each leaf is a hash of a data
+                                            block, and
+                                            each parent node is a hash of its children, leading up to a single
+                                            <strong>Root
+                                                Hash</strong>.
+                                        </li>
+                                        <li>
+                                            <strong>Runtime Verification:</strong> As the OS reads data from the disk,
+                                            <code>dm-verity</code> hashes the block in real-time and compares it against
+                                            the
+                                            signed hash tree.
+                                        </li>
+                                        <li>
+                                            <strong>Result:</strong> If even a single byte has been modified by malware
+                                            or
+                                            corruption, the hashes won't match, and the system will block the read
+                                            operation,
+                                            typically resulting in an I/O error.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Rollback Protection</strong>
+                                    <p>
+                                        Verified Boot also prevents "Rollback Attacks," where an attacker tries to
+                                        install an
+                                        older, vulnerable version of Android to exploit a patched security flaw. The
+                                        device
+                                        stores a <strong>Rollback Index</strong> in tamper-evident hardware storage. If
+                                        the
+                                        version being booted is older than the stored index, the device will refuse to
+                                        start.
+                                    </p>
+                                </li>
+                                <li>
+                                    <strong>What happens if tampering is detected?</strong>
+                                    <p>If the verification fails at any stage, the device enters a specific state
+                                        signaled to the user via "color-coded" warning screens:</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">State</th>
+                                                    <th scope="col">Color</th>
+                                                    <th scope="col">Meaning</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Green</th>
+                                                    <td>None</td>
+                                                    <td>Bootloader is LOCKED; all software is official and verified.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Yellow</th>
+                                                    <td>Yellow</td>
+                                                    <td>Bootloader is LOCKED, but a custom root of trust (user key) is
+                                                        used.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Orange</th>
+                                                    <td>Orange</td>
+                                                    <td>Bootloader is UNLOCKED; the system cannot guarantee integrity.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Red</th>
+                                                    <td>Red</td>
+                                                    <td><strong>Corruption detected</strong>. The device will not boot
+                                                        or will boot in a limited
+                                                        capacity.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                            </ol>
 
+                            <p class="h5"><strong>Why it matters</strong></p>
+                            <p>
+                                Verified Boot ensures that even if a piece of malware gains "Root" access while the
+                                phone
+                                is running, it cannot make itself <strong>persistent</strong>. The moment you reboot,
+                                Verified Boot will
+                                detect the modified system files and prevent the compromised OS from loading, allowing a
+                                <strong>Factory Reset</strong> to truly clean the device.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- 38 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThirtyEight">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a38">
+                            38. What is the purpose of the Work Profile in Android Enterprise?
+                        </button>
+                    </h2>
+                    <div id="a38" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                The <strong>Work Profile</strong> is a specialized, self-contained container on an
+                                Android device that separates work-related apps and data from personal ones. It is the
+                                cornerstone of <strong>Android Enterprise</strong>, designed to balance an
+                                organization's need for data
+                                security with an employee's right to personal privacy.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>The Core Purpose: Separation</strong>
+                                    <p>The Work Profile essentially creates a "virtual wall" inside the device:</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Data Isolation:</strong> Work apps cannot access personal data (like
+                                            your
+                                            private gallery or personal SMS), and personal apps cannot see data within
+                                            the work
+                                            container (like corporate emails or internal documents).
+                                        </li>
+                                        <li>
+                                            <strong>Privacy:</strong> IT administrators have <strong>full
+                                                control</strong> over the work
+                                            profile
+                                            but <strong>zero visibility</strong> into your personal profile. They cannot
+                                            see your
+                                            personal apps,
+                                            photos, messages, or browsing history.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Identifying Work Apps</strong>
+                                    <p>
+                                        Apps inside the Work Profile are visually distinguished by a <strong>briefcase
+                                            badge</strong> on the app icon. If you have Outlook for both personal and
+                                        work use,
+                                        you will see two icons—one plain and one with the badge.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="h5"><strong>Key Features and Benefits</strong></p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Feature</th>
+                                                    <th scope="col">For the Organization (IT Admin)</th>
+                                                    <th scope="col">For the Employee</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Management</th>
+                                                    <td>Can remotely install/update work apps and enforce security
+                                                        policies
+                                                        (e.g., complex PIN).</td>
+                                                    <td>Retains full control over personal apps and settings.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Remote Wipe</th>
+                                                    <td>Can wipe only the work profile if the employee leaves or the
+                                                        device is
+                                                        lost.</td>
+                                                    <td>Personal photos, contacts, and apps remain untouched during a
+                                                        work wipe.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Connectivity</th>
+                                                    <td>Can mandate the use of a Work VPN specifically for work apps.
+                                                    </td>
+                                                    <td>Personal browsing remains on the standard network/home Wi-Fi.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Well-being</th>
+                                                    <td>N/A</td>
+                                                    <td>Can "Pause" the work profile (e.g., after 5 PM) to silence all
+                                                        work
+                                                        notifications.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Use Case Scenarios</strong>
+                                    <ul>
+                                        <li>
+                                            <strong>BYOD (Bring Your Own Device):</strong> An employee uses their own
+                                            phone for
+                                            work. The Work Profile keeps company secrets safe while the employee keeps
+                                            their
+                                            privacy.
+                                        </li>
+                                        <li>
+                                            <strong>COPE (Corporate-Owned, Personally Enabled):</strong> The company
+                                            provides
+                                            the phone but allows personal use. The Work Profile ensures the company
+                                            manages its
+                                            assets without snooping on the employee's private life.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Management Control</strong>
+                                    <p>
+                                        While the IT admin manages the Work Profile via an <strong>EMM (Enterprise
+                                            Mobility
+                                            Management)</strong> solution, their power is strictly limited to that
+                                        container.
+                                        They can prevent you from copying data out of the work profile to a personal
+                                        app, but
+                                        they cannot see what you are doing in your personal Chrome tabs.
+                                    </p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 39 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThirtyNine">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a39">
+                            39. How do Signature-based permissions work between apps from the same developer?
+                        </button>
+                    </h2>
+                    <div id="a39" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Signature-based permissions</strong> are a specialized security tier that allows
+                                apps from the
+                                same developer to share data and components seamlessly while keeping third-party apps
+                                completely locked out.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>How It Works</strong>
+                                    <p>
+                                        When you define a custom permission in your <code>AndroidManifest.xml</code>
+                                        with the
+                                        attribute <code>android:protectionLevel="signature"</code>, the Android system
+                                        uses the
+                                        developer's digital certificate as the "key" to grant that permission.
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <strong>Automatic Trust:</strong> If App A defines a signature-level
+                                            permission and
+                                            App B (signed with the same key) requests it using
+                                            <code>&lt;uses-permission&gt;</code>, the system compares the digital
+                                            signatures of
+                                            both apps.
+                                        </li>
+                                        <li>
+                                            <strong>No User Prompt:</strong> If the signatures match, the system
+                                            <strong>automatically
+                                                grants</strong> the permission at install time. The user never sees a
+                                            pop-up and
+                                            cannot revoke it.
+                                        </li>
+                                        <li>
+                                            <strong>Instant Denial:</strong> If a malicious app from a different
+                                            developer tries
+                                            to request that same permission, the signatures won't match, and the system
+                                            will
+                                            silently deny the request.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Common Use Cases</strong>
+                                    <p>This is the primary way developers build a "suite" of apps that work together
+                                        without
+                                        compromising security:</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Internal Data Sharing:</strong> You might have a "Main App" and a
+                                            "Plugin
+                                            App." You can protect a <code>ContentProvider</code> in the Main App so that
+                                            only
+                                            your Plugin App (signed with the same key) can read its database.
+                                        </li>
+                                        <li>
+                                            <strong>Component Protection:</strong> You can protect an
+                                            <code>Activity</code> or
+                                            <code>Service</code> so that only your other apps can launch it. This
+                                            prevents other
+                                            apps on the phone from "hijacking" your internal app functions.
+                                        </li>
+                                        <li>
+                                            <strong>System Privileges:</strong> Many core Android features (like binding
+                                            to a
+                                            VPN service or Autofill) are protected by signature permissions so that only
+                                            the OS
+                                            or apps signed by the manufacturer (OEM) can use them.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Comparison with Other Permissions</strong>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Feature</th>
+                                                    <th scope="col">Normal Permissions</th>
+                                                    <th scope="col">Dangerous (Runtime)</th>
+                                                    <th scope="col">Signature Permissions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">User Awareness</th>
+                                                    <td>Automatic (Hidden)</td>
+                                                    <td>Manual (Dialog Popup)</td>
+                                                    <td><strong>Automatic (Hidden)</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Who can get it?</th>
+                                                    <td>Any app</td>
+                                                    <td>Any app (if user allows)</td>
+                                                    <td><strong>Only apps with same key</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Revocability</th>
+                                                    <td>No</td>
+                                                    <td>Yes (in Settings)</td>
+                                                    <td><strong>No</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Primary Goal</th>
+                                                    <td>General functionality</td>
+                                                    <td>User Privacy</td>
+                                                    <td><strong>Inter-App Security</strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Important Considerations</strong>
+                                    <ul>
+                                        <li>
+                                            <strong>Key Security:</strong> Since the entire security model relies on the
+                                            signature, your <strong>private signing key</strong> is the most important
+                                            asset. If it is
+                                            stolen, an
+                                            attacker can create apps that bypass your internal security.
+                                        </li>
+                                        <li>
+                                            <strong>Google Play App Signing:</strong> If you use Google Play App
+                                            Signing, Google
+                                            manages your key. Ensure that all apps you want to share permissions with
+                                            are part
+                                            of the same developer account and use the same signing configuration.
+                                        </li>
+                                        <li>
+                                            <strong>Package Name Isolation:</strong> Even if two apps have the same
+                                            signature
+                                            and share permissions, they still live in their own
+                                            <strong>Sandboxes</strong> (different
+                                            UIDs)
+                                            unless you also explicitly use the <code>sharedUserId</code> attribute
+                                            (which is now
+                                            deprecated).
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 40 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingForty">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a40">
+                            40. What is SELinux (Security-Enhanced Linux) in the context of Android?
+                        </button>
+                    </h2>
+                    <div id="a40" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Security-Enhanced Linux (SELinux)</strong> is a mandatory access control (MAC)
+                                system for the Linux kernel. While traditional Android security relies on
+                                <strong>DAC</strong>
+                                (Discretionary Access Control), which uses User IDs (UIDs) to isolate apps, SELinux adds
+                                a much stricter, centralized layer of security that even the "root" user must obey.
+                            </p>
+                            <p>In Android, its primary job is to ensure that even if a process is compromised or has
+                                root privileges, it can only perform the specific actions authorized by a global
+                                security policy.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>DAC vs. MAC: The Key Difference</strong>
+                                    <ul>
+                                        <li>
+                                            <strong>DAC (Discretionary Access Control):</strong> Based on ownership. If
+                                            you own
+                                            a file, you can "discretionarily" decide who else can read or write to it.
+                                            On
+                                            Android, this is the UID sandbox.
+                                        </li>
+                                        <li>
+                                            <strong>MAC (Mandatory Access Control):</strong> Based on a system-wide
+                                            policy. The
+                                            system "mandates" access based on <strong>Labels</strong>. Even if a process
+                                            is
+                                            running as root, if the SELinux policy says "the root user cannot write to
+                                            the
+                                            system partition," the action is blocked.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Core Concepts: Labels and Domains</strong>
+                                    <p>SELinux works by assigning a "Security Context" (label) to everything in the
+                                        system.</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Subjects (Domains):</strong> Every running process is assigned a
+                                            <strong>Domain</strong>
+                                            (e.g., <code>untrusted_app</code>, <code>system_server</code>).
+                                        </li>
+                                        <li>
+                                            <strong>Objects (Types):</strong> Every file, socket, and hardware device is
+                                            assigned a <strong>Type</strong> (e.g., <code>app_data_file</code>,
+                                            <code>camera_device</code>).
+                                        </li>
+                                        <li>
+                                            <strong>The Policy Rule:</strong> For any interaction to happen, there must
+                                            be an
+                                            explicit "allow" rule in the policy:
+                                            <br>
+                                            <code>allow [source_domain] [target_type]:[class] [permissions];</code>
+                                            <br>
+                                            Example:
+                                            <code>allow untrusted_app camera_device:chr_file { read write };</code>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>SELinux Operating Modes</strong>
+                                    <p>Android typically operates in one of two modes:</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Mode</th>
+                                                    <th scope="col">Behavior</th>
+                                                    <th scope="col">Purpose</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Permissive</th>
+                                                    <td>Violations are <strong>logged</strong> but not blocked.</td>
+                                                    <td>Used during development to identify what rules are needed.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Enforcing</th>
+                                                    <td>Violations are <strong>logged and blocked</strong>.</td>
+                                                    <td>The default mode for all production Android devices (since
+                                                        Android 5.0).
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Why SELinux is Crucial for Android</strong>
+                                    <ul>
+                                        <li>
+                                            <strong>Confining Root:</strong> Historically, if a hacker gained "root"
+                                            access,
+                                            they had total control. With SELinux, a rooted process is still confined. A
+                                            rooted
+                                            "media player" still cannot access "banking data" if the policy forbids it.
+                                        </li>
+                                        <li>
+                                            <strong>Reducing Attack Surface:</strong> It limits system daemons. For
+                                            example, the
+                                            <code>netd</code> (networking) daemon is restricted from accessing photos,
+                                            even
+                                            though it runs with high privileges.
+                                        </li>
+                                        <li>
+                                            <strong>Protecting Kernel Integrity:</strong> It restricts which processes
+                                            can use
+                                            certain "system calls" (ioctls), preventing exploits of low-level kernel
+                                            vulnerabilities.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Identifying SELinux Denials</strong>
+                                    <p>
+                                        When SELinux blocks an action, it generates an <strong>AVC (Access Vector
+                                            Cache)</strong>
+                                        denial in the logs. You can see these by running:
+                                        <code>adb shell dmesg | grep "avc: denied"</code>
+                                    </p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 41 -->
