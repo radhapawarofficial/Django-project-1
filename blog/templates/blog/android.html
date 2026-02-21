@@ -4462,33 +4462,1198 @@
 
 
                 <!-- 41 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a41">
+                            41. What is the difference between Internal Storage and External Storage?
+                        </button>
+                    </h2>
+                    <div id="a41" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                In Android development, "Internal" and "External" storage don't always refer to physical
+                                locations (like a built-in chip vs. an SD card). Instead, they describe
+                                <strong>how</strong> the system
+                                manages access to that data.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>Internal Storage</strong>
+                                    <p>Internal storage is a private area of the device’s built-in memory dedicated to
+                                        your application.</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Privacy:</strong> Files are strictly private to your app. Neither
+                                            the user nor other apps can see them (unless the device is rooted).
+                                        </li>
+                                        <li>
+                                            <strong>Reliability:</strong> It is always available. You don't have to
+                                            worry about a user "unmounting" it like an SD card.
+                                        </li>
+                                        <li>
+                                            <strong>Cleanup:</strong> When a user uninstalls your app, the system
+                                            automatically deletes every file in internal storage associated with it.
+                                        </li>
+                                        <li>
+                                            <strong>Best For:</strong> Sensitive user data, private databases (
+                                            <code>SQLite</code> ),
+                                            or small files critical for the app to function.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>External Storage</strong>
+                                    <p>External storage refers to a shared space that is accessible by the user and
+                                        other apps. On modern phones, this usually includes a large portion of the
+                                        built-in memory (Primary) and removable SD cards (Secondary).</p>
+                                    <ul>
+                                        <li>
+                                            <strong>Visibility:</strong> Files are globally readable. The user can see
+                                            them by plugging the phone into a PC or using a File Manager app.
+                                        </li>
+                                        <li>
+                                            <strong>Reliability:</strong> It may not always be available (e.g., if the
+                                            SD card is removed or the storage is mounted as a drive on a computer).
+                                        </li>
+                                        <li>
+                                            <strong>Permissions:</strong> Historically required
+                                            <code>READ_EXTERNAL_STORAGE</code> or
+                                            <code>WRITE_EXTERNAL_STORAGE</code>, though modern "Scoped Storage" has
+                                            changed this.
+                                        </li>
+                                        <li>
+                                            <strong>Best For:</strong> Large files like photos, videos, downloaded PDFs,
+                                            or any data intended to be shared with other apps.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Comparison Summary</strong>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Feature</th>
+                                                    <th scope="col">Internal Storage</th>
+                                                    <th scope="col">External Storage</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Availability</th>
+                                                    <td>Always available</td>
+                                                    <td>May be unmounted or removed</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Accessibility</th>
+                                                    <td>Only by your app</td>
+                                                    <td>By user and other apps</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Uninstall</th>
+                                                    <td>All files are deleted</td>
+                                                    <td>Shared files remain; app-specific files deleted</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Best Use Case</th>
+                                                    <td>Small, sensitive, private data</td>
+                                                    <td>Large, public, non-sensitive data</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Path Example</th>
+                                                    <td><code>/data/user/0/com.app/files/</code></td>
+                                                    <td><code>/storage/emulated/0/Download</code></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>App-Specific External Storage</strong>
+                                    <p>There is a middle ground: <strong>App-specific external storage</strong>.</p>
+                                    <p>By calling <code>getExternalFilesDir()</code>, you get a directory on the
+                                        external storage that belongs to your app.</p>
+                                    <ul>
+                                        <li>It is still technically "External" (other apps can see it on older Android
+                                            versions), but the system <strong>automatically deletes</strong> it when the
+                                            app is uninstalled.
+                                        </li>
+                                        <li>This is perfect for large files that aren't sensitive but also aren't meant
+                                            to
+                                            clutter the user's general gallery or downloads.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 42 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a42">
+                            42. How does the Storage Access Framework (SAF) work?
+                        </button>
+                    </h2>
+                    <div id="a42" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                The <strong>Storage Access Framework (SAF)</strong>, introduced in Android 4.4, is a
+                                system-level bridge that allows apps to access files across various storage providers
+                                (like Google Drive, local storage, and USB drives) through a unified, secure interface.
+                            </p>
+                            <p>
+                                Unlike the old model where an app could browse your entire file system, SAF acts as a
+                                <strong>broker</strong>. The app doesn't browse your files; the <strong>System
+                                    Picker</strong> does.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>The Three Core Components</strong>
+                                    <p>SAF operates via three main players:</p>
+                                    <ul>
+                                        <li><strong>Document Provider:</strong> This is the service that "owns" the
+                                            files (e.g., Google Drive, Dropbox, or the local Downloads folder). It
+                                            implements a <code>DocumentsProvider</code> API to tell the system what
+                                            files it has.
+                                        </li>
+                                        <li><strong>Client App:</strong> This is the app that wants to open or save a
+                                            file (e.g., a photo editor). It doesn't need storage permissions to use SAF
+                                            because the user manually picks the file.</li>
+                                        <li><strong>System Picker:</strong> The "middleman" UI controlled by Android. It
+                                            allows the user to browse all available providers in one consistent list.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>How the Process Works (Step-by-Step)</strong>
+                                    <ul>
+                                        <li><strong>Request:</strong> The Client App sends an <strong>Intent</strong>
+                                            (like
+                                            <code>ACTION_OPEN_DOCUMENT</code>) specifying what it wants (e.g., "only PDF
+                                            files").
+                                        </li>
+                                        <li><strong>Selection:</strong> The <strong>System Picker</strong> pops up. The
+                                            user browses
+                                            their folders and taps a specific file.</li>
+                                        <li><strong>Permission Grant:</strong> By selecting the file, the user grants
+                                            the app a <strong>URI Permission</strong>.</li>
+                                        <li><strong>Access:</strong> The app receives a <code>Uri</code> (a unique link)
+                                            to that
+                                            file. It can now read or write to that specific file using a
+                                            <code>ContentResolver</code>, but it still cannot see anything else in that
+                                            folder.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Key Intent Actions</strong>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Intent Action</th>
+                                                    <th scope="col">Purpose</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row"><code>ACTION_OPEN_DOCUMENT</code></th>
+                                                    <td>Let the user pick an existing file for the app to read/edit.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><code>ACTION_CREATE_DOCUMENT</code></th>
+                                                    <td>Let the user choose a location to save a new file (like "Save
+                                                        As").</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><code>ACTION_OPEN_DOCUMENT_TREE</code></th>
+                                                    <td>Let the user select an entire <strong>folder</strong>, giving
+                                                        the app access to
+                                                        everything inside it.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>SAF vs. Scoped Storage</strong>
+                                    <p>While they are related, they serve different roles in modern Android:</p>
+                                    <ul>
+                                        <li><strong>Scoped Storage</strong> is the rule that says apps can't see the
+                                            whole disk.</li>
+                                        <li><strong>SAF</strong> is the tool apps use to "break out" of their sandbox
+                                            when they need to access a specific user file.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Why Developers Use It</strong>
+                                    <ul>
+                                        <li><strong>No Permissions Needed:</strong> Since the user manually selects the
+                                            file, you don't need to ask for the "All Files Access" permission in your
+                                            manifest.</li>
+                                        <li><strong>Persistence:</strong> Apps can "take" persistable URI permissions,
+                                            meaning they can re-open the same file even after the device reboots without
+                                            asking the user again.</li>
+                                        <li><strong>Cloud Integration:</strong> One piece of code allows your app to
+                                            work with local files, Google Drive, and OneDrive simultaneously.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 43 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a43">
+                            43. What is the Android App Bundle (.aab) and why is it preferred over APKs?
+                        </button>
+                    </h2>
+                    <div id="a43" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                The <strong>Android App Bundle (.aab)</strong> is a publishing format that includes all
+                                your app's compiled code and resources, but defers APK generation and signing to Google
+                                Play.
+                            </p>
+                            <p>
+                                Introduced in 2018, it has since replaced the legacy <code>.apk</code> as the required
+                                standard for
+                                new apps on the Google Play Store.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>How It Works: The "Split APK" Mechanism</strong>
+                                    <p>When you upload an APK, you are uploading a "fat" file that contains resources
+                                        for every possible screen density, language, and CPU architecture (ABI).</p>
+                                    <p>With an <strong>App Bundle</strong>, Google Play uses a process called
+                                        <strong>Dynamic
+                                            Delivery</strong> to generate optimized APKs tailored to a specific user's
+                                        device.
+                                    </p>
+                                    <ul>
+                                        <li><strong>Base APK:</strong> Contains the core logic and resources everyone
+                                            needs.</li>
+                                        <li><strong>Configuration APKs:</strong> Only the specific resources for that
+                                            user's device (e.g., only <code>xxhdpi</code> images, only the
+                                            <code>English</code> language string,
+                                            and only <code>arm64-v8a</code> code).
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Why .aab is Preferred (Benefits)</strong>
+                                    <ul>
+                                        <li><strong>Smaller Download Sizes:</strong> On average, app bundles are
+                                            <strong>15-20%
+                                                smaller</strong> than universal APKs because the device doesn't download
+                                            unnecessary
+                                            data (like Japanese translation files for a user in the US).
+                                        </li>
+                                        <li><strong>Play Feature Delivery:</strong> You can modularize your app. For
+                                            example, a heavy "Level 2" of a game or a "Customer Support Chat" module can
+                                            be downloaded on-demand only when the user actually needs it.</li>
+                                        <li><strong>Play Asset Delivery:</strong> Games with large high-resolution
+                                            assets can use the bundle format to deliver massive textures efficiently,
+                                            reducing the need for separate OBB (expansion) files.</li>
+                                        <li><strong>Increased Security:</strong> Because Google Play handles the signing
+                                            and generation of the final APKs, it ensures that the app is always
+                                            optimized with the latest security and compression standards.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Comparison Summary</strong>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Feature</th>
+                                                    <th scope="col">Legacy APK (.apk)</th>
+                                                    <th scope="col">Android App Bundle (.aab)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Contents</th>
+                                                    <td>Everything (One size fits all)</td>
+                                                    <td>Everything (Modularized)</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Delivery</th>
+                                                    <td>Static</td>
+                                                    <td>Dynamic (Tailored to device)</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Size</th>
+                                                    <td>Larger</td>
+                                                    <td>Smaller</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Sideloading</th>
+                                                    <td>Easy to install directly</td>
+                                                    <td>Difficult (Must be converted to APK first)</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Required?</th>
+                                                    <td>No (Legacy)</td>
+                                                    <td>Yes (For Play Store publishing)</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Important Consideration: Sideloading</strong>
+                                    <p>One major difference is that a <code>.aab</code> file <strong>cannot</strong> be
+                                        installed directly on an
+                                        Android device. To test an app bundle locally, developers must use a tool called
+                                        <code>bundletool</code> to convert the <code>.aab</code> into a set of
+                                        <code>.apks</code> (an APK Set) and
+                                        then install those to a connected device or emulator via ADB.
+                                    </p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 44 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a44">
+                            44. How does Dynamic Delivery reduce the size of app installs?
+                        </button>
+                    </h2>
+                    <div id="a44" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Dynamic Delivery</strong> is the mechanism used by Google Play to transform an
+                                <strong>Android App Bundle (.aab)</strong> into a highly optimized, smaller app
+                                experience for the end
+                                user.
+                            </p>
+                            <p>
+                                Instead of delivering a single, massive APK that contains everything for every device,
+                                Dynamic Delivery uses <strong>Split APKs</strong> to provide a "custom-fit"
+                                installation.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>How It Shrinks the App</strong>
+                                    <p>Dynamic Delivery reduces size by splitting the app into three distinct parts:</p>
+                                    <ul>
+                                        <li><strong>Base APK:</strong> This contains the core logic and assets that
+                                            every device needs to run the app. It's the only part that is mandatory for
+                                            the initial install.</li>
+                                        <li><strong>Configuration APKs:</strong> Google Play detects the user's specific
+                                            device hardware and delivers only the resources that match:
+                                            <ul>
+                                                <li><strong>Screen Density:</strong> Only the images (e.g.,
+                                                    <code>xxhdpi</code>) the
+                                                    device can actually display.
+                                                </li>
+                                                <li><strong>CPU Architecture (ABI):</strong> Only the native code for
+                                                    that specific processor (e.g., <code>arm64-v8a</code>).</li>
+                                                <li><strong>Language:</strong> Only the strings for the user's selected
+                                                    system languages.</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Dynamic Feature APKs:</strong> These are modular parts of the app
+                                            that are not required at startup. They are only downloaded if and when the
+                                            user needs them.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>The Three Delivery Scenarios</strong>
+                                    <p>Developers can choose when a module arrives on a device to further optimize the
+                                        initial download:</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Delivery Type</th>
+                                                    <th scope="col">When it is downloaded</th>
+                                                    <th scope="col">Use Case Example</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Install-time</th>
+                                                    <td>During the initial app install.</td>
+                                                    <td>Core features or mandatory onboarding.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Conditional</th>
+                                                    <td>Only if device meets criteria (e.g., AR support).</td>
+                                                    <td>High-end VR/AR features or region-specific payment methods.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">On-demand</th>
+                                                    <td>Only when the user triggers a specific action.</td>
+                                                    <td>A heavy photo editor module within a social media app.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>The "Uninstallation" Benefit</strong>
+                                    <p>Dynamic Delivery also allows for <strong>Removable Modules</strong>. For example,
+                                        an app can include a large "New User Tutorial" at install time. Once the user
+                                        completes the training, the app can programmatically request the system to
+                                        <strong>uninstall that specific module</strong>, freeing up storage space on the
+                                        user's device
+                                        while keeping the main app intact.
+                                    </p>
+                                </li>
+                                <li>
+                                    <strong>Impact on Growth</strong>
+                                    <p>The statistics are clear: for every <strong>3 MB</strong> you remove from your
+                                        initial download
+                                        size, apps see an average <strong>1% increase in installation rates</strong>. By
+                                        delivering a
+                                        lean "Base" and deferring heavy features, developers can significantly lower the
+                                        barrier for new users to hit the "Install" button.</p>
+                                </li>
+                            </ol>
+                            <p class="h5"><strong>Note:</strong></p>
+                            <p>
+                                <strong>Dynamic Feature Modules</strong> require the <strong>Play Feature Delivery
+                                    Library</strong>. This allows your app to monitor the download progress and
+                                "install" the new
+                                code into the running app without requiring a restart.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 45 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a45">
+                            45. What is the Doze Mode and how does it optimize battery life?
+                        </button>
+                    </h2>
+                    <div id="a45" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Doze Mode</strong>, introduced in Android 6.0 (Marshmallow), is a system-level
+                                power-management policy that reduces battery consumption by deferring background CPU and
+                                network activity when a device is unused for long periods.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>How Doze Mode is Triggered</strong>
+                                    <p>The system enters Doze mode when the following conditions are met:</p>
+                                    <ul>
+                                        <li>The device is <strong>stationary</strong> (not moving, detected via
+                                            sensors).</li>
+                                        <li>The screen is <strong>off</strong>.</li>
+                                        <li>The device is <strong>not charging</strong>.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>The "Maintenance Window" Strategy</strong>
+                                    <p>Doze doesn't completely shut down background tasks. Instead, it groups them into
+                                        brief periods called <strong>Maintenance Windows</strong>.</p>
+                                    <ul>
+                                        <li><strong>Deep Sleep:</strong> Between windows, the system restricts network
+                                            access and ignores "Wake Locks" (which apps use to keep the CPU awake).</li>
+                                        <li><strong>Window Action:</strong> During a maintenance window, the system lets
+                                            apps sync data, run pending jobs, and access the network.</li>
+                                        <li><strong>Frequency:</strong> As the device remains in Doze longer, these
+                                            maintenance windows occur less and less frequently to save even more power.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Restrictions During Doze</strong>
+                                    <p>When Doze is active, the following restrictions are applied to all apps:</p>
+                                    <ul>
+                                        <li><strong>Network access</strong> is disabled.</li>
+                                        <li><strong>Wake locks</strong> are ignored.</li>
+                                        <li><strong>Standard Alarms</strong> (AlarmManager) are deferred
+                                            until the next
+                                            maintenance window.</li>
+                                        <li><strong>Wi-Fi scans</strong> are not performed.</li>
+                                        <li><strong>SyncAdapters and JobSchedulers</strong> are prevented from running.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Doze vs. App Standby</strong>
+                                    <p>While Doze focuses on the device's state, <strong>App Standby</strong> focuses on
+                                        specific apps
+                                        that the user hasn't interacted with recently.</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Feature</th>
+                                                    <th scope="col">Doze Mode</th>
+                                                    <th scope="col">App Standby</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Trigger</th>
+                                                    <td>Device is stationary, screen off, unplugged.</td>
+                                                    <td>App hasn't been used for a specific duration.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Scope</th>
+                                                    <td>Affects the <strong>entire system</strong>.</td>
+                                                    <td>Affects <strong>individual apps</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Network</th>
+                                                    <td>Blocked for all apps.</td>
+                                                    <td>Blocked for that specific app.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Ending State</th>
+                                                    <td>User moves or turns on screen.</td>
+                                                    <td>User opens the app or plugs in the device.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>High-Priority Exceptions</strong>
+                                    <ul>
+                                        <li><strong>High-priority FCM (Firebase Cloud Messaging) messages:</strong> Used
+                                            for instant messaging or
+                                            phone calls to "wake up" the app briefly.</li>
+                                        <li><strong>Foreground Services:</strong> Apps running a visible notification
+                                            (like a music player or GPS) are exempt.</li>
+                                        <li><strong>White-listed Apps:</strong> Users can manually exempt specific apps
+                                            from battery optimization in <strong>Settings &gt; Battery</strong>.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <p class="h5"><strong>Why this matters:</strong></p>
+                            <p>
+                                Before Doze, any app could wake up the phone at any
+                                time, leading to significant "idle drain." Doze ensures that your phone can last for
+                                days on a single charge if left untouched, while still delivering your most important
+                                notifications.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 46 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortySix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a46">
+                            46. How does App Standby Buckets prioritize system resources?
+                        </button>
+                    </h2>
+                    <div id="a46" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>App Standby Buckets</strong>, introduced in Android 9 (Pie), is a
+                                power-management feature that uses machine learning to categorize apps based on how
+                                frequently you use them. Instead of treating all apps the same, the system limits the
+                                resources (CPU, network, and background tasks) for apps you rarely open.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>The Four (Main) Buckets</strong>
+                                    <p>Android assigns every app on your phone into one of these buckets. The "lower"
+                                        the bucket, the more restrictions the app faces.</p>
+                                    <ul>
+                                        <li><strong>Active:</strong> Apps you are currently using or have used very
+                                            recently (e.g., an open social media app). There are <strong>no
+                                                restrictions</strong> on jobs
+                                            or alarms.</li>
+                                        <li><strong>Working Set:</strong> Apps you use regularly but aren't active right
+                                            now (e.g., a news app you check every morning). These have <strong>slight
+                                                restrictions</strong> on how often they can run background jobs.</li>
+                                        <li><strong>Frequent:</strong> Apps you use often but not every day (e.g., a gym
+                                            tracking app used three times a week). They have <strong>moderate
+                                                restrictions</strong> on
+                                            network access and background tasks.</li>
+                                        <li><strong>Rare:</strong> Apps you almost never use (e.g., a hotel booking app
+                                            used once a year). These are <strong>heavily restricted</strong>. They can
+                                            only run jobs and
+                                            trigger alarms during very brief "maintenance windows" (similar to Doze
+                                            Mode).</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>How an App Moves Between Buckets</strong>
+                                    <p>The system dynamically updates these buckets based on your behavior:</p>
+                                    <ul>
+                                        <li><strong>Direct Interaction:</strong> If you open an app, it immediately
+                                            jumps to the Active bucket.</li>
+                                        <li><strong>Usage Patterns:</strong> If you stop using an app, it gradually
+                                            "decays" and sinks into lower buckets over several days.</li>
+                                        <li><strong>User Intent:</strong> If you interact with a notification, the app's
+                                            priority is boosted temporarily.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Resource Restrictions per Bucket</strong>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Bucket</th>
+                                                    <th scope="col">Network Access</th>
+                                                    <th scope="col">Background Jobs</th>
+                                                    <th scope="col">Alarms</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Active</th>
+                                                    <td>No Limit</td>
+                                                    <td>No Limit</td>
+                                                    <td>No Limit</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Working Set</th>
+                                                    <td>No Limit</td>
+                                                    <td>Several times per hour</td>
+                                                    <td>Several times per hour</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Frequent</th>
+                                                    <td>Restricted</td>
+                                                    <td>Limited to small windows</td>
+                                                    <td>Limited to small windows</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Rare</th>
+                                                    <td>Only in system windows</td>
+                                                    <td>Max once per day</td>
+                                                    <td>Max once per day</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Special Exemptions</strong>
+                                    <p>Certain apps and processes are exempt from the bucket system to ensure the phone
+                                        remains functional:</p>
+                                    <ul>
+                                        <li><strong>System Apps:</strong> Core Android processes.</li>
+                                        <li><strong>Device Admin Apps:</strong> Enterprise-managed apps.</li>
+                                        <li><strong>Foreground Services:</strong> Any app currently showing a persistent
+                                            notification (like Spotify playing music).</li>
+                                        <li><strong>Alarm Clocks:</strong> You wouldn't want your wake-up call to be
+                                            deferred because you haven't opened the Clock app in a week!</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <p class="h5"><strong>Why this matters:</strong></p>
+                            <p>
+                                App Standby Buckets prevent "zombie apps" from
+                                draining your battery by constantly syncing data in the background. It ensures that the
+                                apps you actually care about have the most processing power and best performance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 47 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortySeven">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a47">
+                            47. How do I implement Deep Linking and Android App Links?
+                        </button>
+                    </h2>
+                    <div id="a47" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                <strong>Deep Linking</strong> and <strong>Android App Links</strong> both allow external
+                                URLs to open specific content in
+                                your app. While they look similar, the implementation and user experience differ
+                                significantly.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>Deep Links (Standard)</strong>
+                                    <p>Deep links use a custom URI scheme (e.g., <code>my-app://open/profile</code>) or
+                                        a standard web scheme.</p>
+                                    <p><strong>Experience:</strong> If multiple apps can handle the link, Android shows
+                                        a <strong>Disambiguation Dialog</strong> (the "Open with" menu).</p>
+                                    <p><strong>Implementation:</strong> Add an <code>&lt;intent-filter&gt;</code> to
+                                        your activity in <code>AndroidManifest.xml</code>:</p>
+                                    <script src="https://gist.github.com/docsallover/4e9be6feb335f8c13d9b4838e608e33f.js"></script>
+                                </li>
+                                <li>
+                                    <strong>Android App Links (Verified)</strong>
+                                    <p>App Links are regular HTTP/HTTPS URLs (e.g.,
+                                        <code>https://www.example.com/profile</code>) that are <strong>verified</strong>
+                                        to belong to
+                                        your app.
+                                    </p>
+                                    <p><strong>Experience:</strong> The app opens <strong>immediately</strong> without a
+                                        dialog. If the
+                                        app isn't installed, the link opens in the browser.</p>
+                                    <p><strong>Implementation:</strong></p>
+                                    <ul>
+                                        <li><strong>Add Intent Filter:</strong> Use
+                                            <code>android:autoVerify="true"</code> so the system verifies your domain
+                                            ownership.
+                                        </li>
+                                    </ul>
+                                    <script src="https://gist.github.com/docsallover/4fba0dff36974dfd0cc24f470acd0028.js"></script>
+                                    <ul>
+                                        <li><strong>Host Digital Asset Links File:</strong> You must host a JSON file at
+                                            <code>https://www.example.com/.well-known/assetlinks.json</code> containing
+                                            your app's package name and SHA-256 fingerprint:
+                                        </li>
+                                    </ul>
+                                    <script src="https://gist.github.com/docsallover/c91d5c8d98e27434a5832d4a6b3b77b1.js"></script>                              </li>
+                                <li>
+                                    <strong>Comparison Table</strong>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Feature</th>
+                                                    <th scope="col">Deep Links</th>
+                                                    <th scope="col">Android App Links</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Intent Scheme</th>
+                                                    <td>Custom (e.g.,<code>app://</code>)</td>
+                                                    <td>Must be <code>http</code> or <code>https</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Verification</th>
+                                                    <td>None</td>
+                                                    <td>Required ( <code>assetlinks.json</code> )</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">User Experience</th>
+                                                    <td>Disambiguation Dialog</td>
+                                                    <td><strong>Direct open</strong> (No dialog)</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Fallback</th>
+                                                    <td>Error if not handled</td>
+                                                    <td>Opens in web browser</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Handling the Link in Code</strong>
+                                    <p>In your Activity's <code>onCreate()</code> or <code>onNewIntent()</code>,
+                                        retrieve the data to navigate to the correct screen:</p>
+                                    <script src="https://gist.github.com/docsallover/a81ccadf734b2ada4f29a54e5c86c74a.js"></script>
+                                </li>
+                            </ol>
+                            <p class="h5"><strong>How to Test</strong></p>
+                            <ul>
+                                <li><strong>Via ADB:</strong> Run
+                                    <code>adb shell am start -W -a android.intent.action.VIEW -d "https://www.example.com/profile" com.example.myapp</code>
+                                </li>
+                                <li><strong>Verification Status:</strong> Run
+                                    <code>adb shell pm get-app-links com.example.myapp</code> to check if your
+                                    domain passed the <code>autoVerify</code> check.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 48 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyEight">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a48">
+                            48. What is the Vulkan API and how does it improve graphics performance?
+                        </button>
+                    </h2>
+                    <div id="a48" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                The <strong>Vulkan API</strong> is a low-overhead, cross-platform graphics and compute
+                                API designed to provide high-performance 3D graphics. While its predecessor, <strong>OpenGL ES</strong>,
+                                handled many tasks automatically (and often inefficiently) behind the scenes, Vulkan
+                                gives developers direct control over the GPU hardware.
+                            </p>
+                            <p>
+                                Starting in 2025, Android has transitioned to making Vulkan the <strong>official graphics API</strong>,
+                                with even older OpenGL apps being translated to Vulkan via a system driver called <strong>ANGLE</strong>.
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>How Vulkan Improves Performance</strong>
+                                    <p>Vulkan's performance gains come from its "explicit" nature—it stops the system
+                                        from "guessing" what the app needs and instead requires the developer to define
+                                        everything exactly.</p>
+                                    <ul>
+                                        <li><strong>Reduced CPU Overhead:</strong> In OpenGL, the driver spent a lot of
+                                            time checking for errors and managing memory during the game. Vulkan moves
+                                            these checks to the development phase. During actual gameplay, the driver
+                                            does almost nothing except pass commands to the GPU, significantly lowering
+                                            CPU usage.</li>
+                                        <li><strong>Native Multithreading:</strong> OpenGL was essentially
+                                            single-threaded, often bottlenecking a game on one CPU core. Vulkan allows a
+                                            developer to spread graphics commands across all available CPU cores
+                                            simultaneously, leading to much higher frame rates.</li>
+                                        <li><strong>Direct Memory Management:</strong> Developers manually allocate and
+                                            deallocate GPU memory. This prevents the "random hitches" or frame drops
+                                            often caused by the automatic memory management (Garbage Collection) found
+                                            in older APIs.</li>
+                                        <li><strong>Pre-compiled Shaders (SPIR-V):</strong> OpenGL compiled shader code
+                                            while the game was running, causing stutters. Vulkan uses <strong>SPIR-V</strong>, a binary
+                                            format that is pre-compiled, leading to faster loading times and smoother
+                                            rendering.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Comparison: Vulkan vs. OpenGL ES</strong>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Feature</th>
+                                                    <th scope="col">OpenGL ES</th>
+                                                    <th scope="col">Vulkan API</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Control</th>
+                                                    <td>High Abstraction (Driver-led)</td>
+                                                    <td>Low-level (Developer-led)</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">CPU Usage</th>
+                                                    <td>High (Single-core bottleneck)</td>
+                                                    <td>Low (Multi-core efficient)</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Error Checking</th>
+                                                    <td>Done at Runtime (Slower)</td>
+                                                    <td>Done during Development</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Predictability</th>
+                                                    <td>Prone to "driver hitches"</td>
+                                                    <td>Highly predictable performance</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Modern Features</th>
+                                                    <td>Limited</td>
+                                                    <td>Supports Ray Tracing &amp; Mesh Shaders</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Impact on the User Experience</strong>
+                                    <p>For the end user, these technical improvements translate into real-world
+                                        benefits:</p>
+                                    <ul>
+                                        <li><strong>Better Battery Life:</strong> Because the CPU doesn't have to work
+                                            as hard to "talk" to the GPU, the device consumes less power (often <strong>10-15%
+                                            less</strong> in optimized games).</li>
+                                        <li><strong>Higher Fidelity:</strong> Developers can use the saved "CPU budget"
+                                            to add more objects, better lighting, and more complex physics to the
+                                            screen.</li>
+                                        <li><strong>Thermal Stability:</strong> By distributing work across multiple
+                                            cores, the device generates less heat, preventing the "thermal throttling"
+                                            that often causes games to lag after 20 minutes of play.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 49 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFortyNine">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a49">
+                            49. How does Android handle Multi-window and Picture-in-Picture (PiP) modes?
+                        </button>
+                    </h2>
+                    <div id="a49" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                Android handles multitasking through two primary features: <strong>Multi-window
+                                    mode</strong> (split-screen/freeform) and <strong>Picture-in-Picture (PiP)
+                                    mode</strong>. While both allow multiple apps to share the screen, they differ in
+                                how they impact the activity lifecycle and implementation.
+                            </p>
+
+                            <ol>
+                                <li>
+                                    <strong>Multi-window Mode (Split-Screen)</strong>
+                                    <p>In multi-window mode, the screen is divided to show two apps side-by-side or one
+                                        above the other.</p>
+
+                                    <ul>
+                                        <li><strong>The Lifecycle Change:</strong>
+                                            <ul>
+                                                <li><strong>Pre-Android 10:</strong> Only the app the user most recently
+                                                    interacted with was in the <code>RESUMED</code> state. The other
+                                                    visible app was <code>PAUSED</code>.</li>
+                                                <li><strong>Android 10+:</strong> Both visible apps remain in the
+                                                    <code>RESUMED</code> state (<strong>Multi-resume</strong>). This
+                                                    ensures a video in one window doesn't stop just because you are
+                                                    typing in another.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Configuration Changes:</strong> Entering multi-window mode triggers
+                                            a configuration change. The system destroys and recreates the activity
+                                            unless you handle it manually using <code>android:configChanges</code>.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Picture-in-Picture (PiP) Mode</strong>
+                                    <p>PiP is a specialized multi-window mode specifically for video playback or
+                                        navigation. It shrinks the activity into a small, floating window that overlays
+                                        other apps.</p>
+                                    <ul>
+                                        <li><strong>Lifecycle Behavior:</strong> An activity in PiP is usually in the
+                                            <code>PAUSED</code> state but <strong>continues to render</strong>.
+                                            Developers must ensure they don't pause playback in <code>onPause()</code>
+                                            if the app is in PiP.
+                                        </li>
+                                        <li><strong>User Triggers:</strong> Usually entered when the user presses <strong>Home</strong>
+                                            button or swipes up while a video is playing.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Implementation Comparison</strong>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Feature</th>
+                                                    <th scope="col">Multi-window (Split)</th>
+                                                    <th scope="col">Picture-in-Picture (PiP)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Manifest Opt-in</th>
+                                                    <td><code>android:resizeableActivity="true"</code></td>
+                                                    <td><code>android:supportsPictureInPicture="true"</code></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Activation</th>
+                                                    <td>User-led (via Recents screen)</td>
+                                                    <td>App-led (<code>enterPictureInPictureMode()</code>)</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Best For</th>
+                                                    <td>Productivity / Multitasking</td>
+                                                    <td>Continuous video / Navigation</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">UI Handling</th>
+                                                    <td>Standard responsive layouts</td>
+                                                    <td>Hide UI except main content</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Developer Best Practices</strong>
+                                    <p>To ensure a smooth experience in these modes, follow these three rules:</p>
+                                    <ul>
+                                        <li><strong>Use <code>onPictureInPictureModeChanged</code>:</strong> Use this callback to hide
+                                            unnecessary UI elements (like play/pause buttons) when the window shrinks.
+                                        </li>
+                                        <li><strong>Set Aspect Ratio:</strong> Use <code>PictureInPictureParams.Builder().setAspectRatio()</code> to
+                                            ensure the PiP window matches your video's dimensions (e.g., 16:9), preventing black bars.</li>
+                                        <li><strong>Handle Resources in <code>onStop</code>:</strong> Since a visible app in
+                                            multi-window is <code>RESUMED</code> or <code>PAUSED</code>, only release
+                                            heavy resources (like the camera or large memory buffers) in <code>onStop()</code> , not <code>onPause()</code>.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
 
                 <!-- 50 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFifty">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a50">
+                            50. What are the key architectural changes in the latest Android 14/15 versions?
+                        </button>
+                    </h2>
+                    <div id="a50" class="accordion-collapse collapse" data-bs-parent="#AndroidAccordion">
+                        <div class="accordion-body">
+                            <p>
+                                The latest releases, <strong>Android 14 (Upside Down Cake)</strong> and <strong>Android
+                                    15 (Vanilla Ice Cream)</strong>, represent a major shift toward hardware-level
+                                security, memory optimization, and stricter app lifecycle management.
+                            </p>
+
+                            <ol>
+                                <li>
+                                    <strong>16 KB Page Size Support (Android 15)</strong>
+                                    <p>The most significant architectural change in Android 15 is the transition from <strong>4
+                                        KB to 16 KB memory pages</strong>.</p>
+                                    <ul>
+                                        <li><strong>Performance Gain:</strong> This reduces the overhead of memory
+                                            management, leading to <strong>5-10% better battery life</strong> and up to <strong>30% faster app
+                                            launches</strong> for memory-intensive apps.</li>
+                                        <li><strong>The "Native" Requirement:</strong> If your app uses the NDK (C/C++
+                                            code), it <strong>must</strong> be recompiled with 16 KB alignment by November 2025 to run on
+                                            newer 64-bit devices. Java/Kotlin-only apps are unaffected.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Private Space (Android 15)</strong>
+                                    <p>Android 15 introduces an OS-level <strong>Private Space</strong>, a secure "sandbox within a
+                                        sandbox."</p>
+                                    <ul>
+                                        <li><strong>Architectural Separation:</strong> Apps in this space run under a
+                                            separate user profile that can be completely "stopped" when locked.</li>
+                                        <li><strong>Invisible State:</strong> When locked, the system treats these apps
+                                            as though they aren't installed—notifications are hidden, and their
+                                            background processes are killed to ensure zero data leakage.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Foreground Service Restrictions (Android 14 &amp; 15)</strong>
+                                    <p>Google is aggressively moving away from "persistent" background apps to save
+                                        battery.</p>
+                                    <ul>
+                                        <li><strong>Strict Type Declaration:</strong> Apps must now declare a specific
+                                            <strong>Foreground Service Type</strong> (e.g., <code>mediaPlayback</code>,
+                                            <code>location</code>).
+                                        </li>
+                                        <li><strong>Short-Service Type:</strong> Android 14 introduced a "short service"
+                                            type for quick tasks (up to 3 minutes), after which the system will kill the
+                                            process.</li>
+                                        <li><strong>Media Processing Type:</strong> Android 15 adds a
+                                            <code>mediaProcessing</code> type specifically for heavy tasks like video
+                                            transcoding, ensuring they aren't killed prematurely.
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Security &amp; Privacy Hardening</strong>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">Feature</th>
+                                                    <th scope="col">Version</th>
+                                                    <th scope="col">Impact</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Minimum API Level</th>
+                                                    <td>Android 15</td>
+                                                    <td>Apps targeting <strong>API &lt; 24</strong> (Android 7.0) can no longer be
+                                                        installed to block older malware.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Screenshot Detection</th>
+                                                    <td>Android 15</td>
+                                                    <td>Apps can now detect if they are being recorded or screenshotted.
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Safer Intents</th>
+                                                    <td>Android 14</td>
+                                                    <td>Restricts "Implicit Intents" to internal app components to
+                                                        prevent hijacking.</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Partial Photo Access</th>
+                                                    <td>Android 14</td>
+                                                    <td>Users can grant access to <strong>specific photos</strong> rather than the entire
+                                                        gallery.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Predictable Back &amp; Edge-to-Edge</strong>
+                                    <ul>
+                                        <li><strong>Edge-to-Edge by Default:</strong> Android 15 forces apps to render
+                                            behind the status and navigation bars by default (targeting API 35).</li>
+                                        <li><strong>Predictive Back:</strong> Android 14/15 improves the "peek"
+                                            animation when swiping back, showing the previous Activity before the
+                                            gesture is finished.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+
+                            <p><strong>Comparison of Key Shifts</strong></p>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Focus Area</th>
+                                            <th>Android 14</th>
+                                            <th>Android 15</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Memory</strong></td>
+                                            <td>64 KB <code>mlock</code> limit</td>
+                                            <td><strong>16 KB Page Size</strong> support</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Privacy</strong></td>
+                                            <td>Partial Media Access</td>
+                                            <td><strong>Private Space</strong> &amp; Screen Protection</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Battery</strong></td>
+                                            <td>Cached app queueing</td>
+                                            <td>Better <strong>ADPF</strong> (Performance Framework)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>UI</strong></td>
+                                            <td>Non-linear font scaling</td>
+                                            <td><strong>Mandatory Edge-to-Edge</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
